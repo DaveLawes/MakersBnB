@@ -26,14 +26,28 @@ class MakersBnb < Sinatra::Base
         @active = user.name
       end
     end
-    p @active
-
     erb :index
   end
 
   get "/login" do
     erb :login
   end
+
+  post "/login" do
+    user = User.find_by(
+      email: params[:email],
+      password: params[:password]
+    )
+    if user.present?
+      session[:user_id] = user.id
+      redirect "/"
+    else
+      # flash[:error] = "Error: user not found"
+      redirect "/login"
+    end
+  end
+
+
 
   get "/register" do
     erb :register
@@ -56,8 +70,9 @@ class MakersBnb < Sinatra::Base
     #   user.errors.full_messages.join(", ")
     #   redirect "/register"
     # end
-
   end
+
+
 
   run! if app_file == $0
 end

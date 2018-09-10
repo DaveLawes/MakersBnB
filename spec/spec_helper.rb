@@ -1,6 +1,6 @@
 ENV['ENVIRONMENT'] = 'test'
 
-require './app'
+require_relative '../app'
 require 'capybara/rspec'
 require 'simplecov'
 require 'simplecov-console'
