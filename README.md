@@ -4,12 +4,35 @@ A web application that allows users to list spaces they have available, and to h
 
 ## MVP
 
-- A user can list spaces on the web application.
+Users can list spaces on the web application that are visible to all.
 
 
 ## User Stories
 
+```
+-- BASIC --
 
+As a property owner
+So I can list a property
+I'd like to create an account
+
+As a property owner
+So I can list a property
+I'd like to add my property and some basic property details
+
+As a user
+So I can see listed properties
+I'd like the web app to show all listings
+
+As a user
+So I can add another property
+I want to be able to log in
+
+As a system admin
+So that I do not have unassociated properties
+Only logged in users can add a property listing
+
+```
 
 
 ### Headline specifications
