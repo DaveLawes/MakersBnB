@@ -2,7 +2,7 @@
 https://nodejs.org/en/ 
 
 ## NPM - Node Package Manager
-Node come with a package manager. It puts modules in place so that node can find them. 
+Node comes with a package manager. It puts modules in place so that node can find them. 
 
 * For each new project set up your folder using `npm init` in the command line. 
   This creates a `package.json` file <-- This will be used to track the dependencies of the app (similar to Gemfile)
@@ -89,14 +89,16 @@ app.get("/users/:name/:property", function (req, res) {
 In this example the whole params object is sent to the page. To access just the name params use `req.params.name`
 
 
-# Testing
-
-Zombie: http://zombie.js.org/ 
-
-
 ### Resources
 Our test repo: https://github.com/EsamAl-Dabagh/node_test 
 
 Node: https://nodejs.org/en/
+
 NPM: https://www.npmjs.com/
+
 Express: https://expressjs.com/en/starter/installing.html 
+
+
+# Testing
+
+Zombie: http://zombie.js.org/ 
