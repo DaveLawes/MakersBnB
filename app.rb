@@ -9,6 +9,11 @@ class MakersBnb < Sinatra::Base
 
   get "/" do
     "Hello, World!"
+    erb :index
+  end
+
+  get "/login" do
+    erb :login
   end
 
   run! if app_file == $0
