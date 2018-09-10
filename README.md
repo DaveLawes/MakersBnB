@@ -4,9 +4,7 @@ A web application that allows users to list spaces they have available, and to h
 
 ## MVP
 
-- A user can sign up to the website
-- A user can list spaces that are then visible on the website
-- A user can include details of the space, contact information and dates available
+- A user can list spaces on the web application.
 
 
 ## User Stories
