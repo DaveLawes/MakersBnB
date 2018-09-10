@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS properties (
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   user_id INTEGER,
   title TEXT,
   description TEXT,

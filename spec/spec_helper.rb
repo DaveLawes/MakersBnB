@@ -13,14 +13,14 @@ SimpleCov.start
 Capybara.app = MakersBnb
 
 RSpec.configure do |config|
-  config.before[:suite] do
+  config.before(:suite) do
     ActiveRecord::Base.logger = nil
-    ["users", "properties"].each do |table|
-      ActiveRecord::Base.connection.execute(File.read("db/setup/#{table}.sql"))
-    end
+    ActiveRecord::Base.connection.execute(File.read("db/setup/users.sql"))
+    ActiveRecord::Base.connection.execute(File.read("db/setup/properties.sql"))
   end
 
   config.before(:each) do
     User.delete_all
-    Message.delete_all
+    Property.delete_all
+  end
 end
