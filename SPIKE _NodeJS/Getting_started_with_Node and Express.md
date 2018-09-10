@@ -89,6 +89,10 @@ app.get("/users/:name/:property", function (req, res) {
 In this example the whole params object is sent to the page. To access just the name params use `req.params.name`
 
 
+# Testing
+
+Zombie: http://zombie.js.org/ 
+
 
 ### Resources
 Our test repo: https://github.com/EsamAl-Dabagh/node_test 
