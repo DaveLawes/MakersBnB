@@ -19,3 +19,15 @@
 </ul>
 
 </html>
+
+<h3>Properties</h3>
+
+<ul>
+<% @properties.each do |property| %>
+  <li><%=property.title%></li>
+  <ul>
+    <li><%=property.description%></li>
+    <li><%=property.price%></li>
+  </ul>
+<% end %>
+</ul>

@@ -26,6 +26,8 @@ class MakersBnb < Sinatra::Base
         @active = user.name
       end
     end
+    @properties = Property.all
+
     erb :index
   end
 
