@@ -47,8 +47,6 @@ class MakersBnb < Sinatra::Base
     end
   end
 
-
-
   get "/register" do
     erb :register
   end
@@ -72,7 +70,28 @@ class MakersBnb < Sinatra::Base
     # end
   end
 
+  get '/add_property' do
+    if session[:user_id].nil?
+      redirect "/login"
+    else
+      erb :add_property
+    end
+  end
 
+  post '/add_property' do
+    property = Property.new(
+      title: params[:title],
+      description: params[:description],
+      price: params[:price]
+    )
+    property.user_id = session[:user_id]
+    if property.save
+      redirect "/"
+    else
+      # flash[:error] = property.errors.full_messages.join(", ")
+      redirect "/add_property"
+    end
+  end
 
   run! if app_file == $0
 end
