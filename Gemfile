@@ -8,6 +8,7 @@ gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'sinatra-flash'
 gem 'sqlite3'
+gem 'thin'
 
 group :test do
   gem 'capybara'
