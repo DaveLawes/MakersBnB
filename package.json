@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start:dev": "nodemon ./bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,10 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
-  }
+    "nodemon": "^1.18.4",
+    "express": "^4.16.3",
+    "eslint": "^5.5.0",
+    "jasmine": "^3.2.0",
+    "zombie": "^6.1.3"
+  },
 }
