@@ -1,4 +1,5 @@
 const Browser = require('zombie');
+const Helper = require('./helpers/web_helpers')
 
 // We're going to make requests to http://example.com/signup
 // Which will be routed to our test server localhost:3000
@@ -8,7 +9,7 @@ const app = require('../app')
 
 const browser = new Browser();
 
-describe('User visits homage page', function() {
+describe('User visits homepage', function() {
   beforeEach(function() {
     return browser.visit('/');
   });
@@ -35,10 +36,28 @@ describe('User visits homage page', function() {
     browser.assert.success();
     browser.fill('email', 'mathilde@email.com')
     browser.fill('password', '1234')
-    browser.pressButton('Submit')
+    return browser.pressButton('Submit')
     browser.assert.text('h1', 'Welcome to MakersBNB')
     browser.assert.text('h3', 'mathilde')
-  })
+  });
+});
 
+describe('List a space', function() {
+  beforeEach(function() {
+    return browser.visit('/properties');
+  });
 
+  it('User can list a new space', function() {
+    // browser.fill('email', 'mathilde@email.com')
+    // browser.fill('password', '1234')
+    // return browser.pressButton('Submit')
+    return browser.pressButton('List a space');
+    console.log("test");
+    browser.assert.text('h1', 'MakersBNB');
+    browser.assert.text('h2', 'title');
+    // browser.assert.elements('form input[name=title]');
+    // browser.assert.elements('form input[name=description]');
+    // browser.assert.elements('form input[name=price]');
+    // browser.assert.elements('form input[name=submit]');
+  });
 });
