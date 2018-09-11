@@ -107,6 +107,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 ```
 
+Then in your route, you can access data from a form using:
+
+```
+var name = req.body.name;
+var property = req.body.property;
+```
+
 
 # EJS (Embedded JavaScript)
 * EJS is to Express what ERB is to Sinatra. 
@@ -159,15 +166,33 @@ Then in the users view:
 # Sessions
 (under construction)
 
-`npm install express-sessions --save"
+`npm install cookie-parser --save"
+`npm install cookie-session --save"
 
 Require in your controller file:
 
 ```
-var session = require("express-sessions");
+var cookieParser = require("cookie-parser");
+var cookieSession = require("cookie-session");
 ```
 
-** Still figuring out the configuration for the sessions **
+Configuration:
+
+```
+app.use(cookieParser());
+app.use(cookieSession({
+  secret: "makers-makers-makers"
+}));
+```
+
+### Saving data to a session:
+
+```
+req.session.name = req.body.name;
+req.session.property = req.body.property;
+```
+
+You can then access this data in other routes by using `req.session.name` or `req.session.property` and passing it into your ejs file in the way explained above.
 
 
 # Resources
