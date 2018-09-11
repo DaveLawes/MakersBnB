@@ -2,6 +2,9 @@ const Browser = require('zombie');
 
 // We're going to make requests to http://example.com/signup
 // Which will be routed to our test server localhost:3000
+const app = require('../app');
+// const http = require('http').createServer(app).listen(3000);
+
 Browser.localhost('example.com', 3000);
 
 describe('User visits homage page', function() {
@@ -15,11 +18,10 @@ describe('User visits homage page', function() {
   describe('submits form', function() {
 
     beforeEach(function() {
-      browser
-        .fill('email',    'mathilde@email.com')
-        .fill('name',    'mathilde')
-        .fill('password', '1234');
-      return browser.pressButton('Signup');
+      browser.fill('email',    'mathilde@email.com');
+      browser.fill('name',    'mathilde');
+      browser.fill('password', '1234');
+      return browser.pressButton('Submit');
     });
 
     it('should be successful', function() {
@@ -27,7 +29,7 @@ describe('User visits homage page', function() {
     });
 
     it('should see welcome page', function() {
-      browser.assert.text('title', 'Welcome on MakersBNB');
+      browser.assert.text('h1', 'Welcome on MakersBNB');
     });
   });
 

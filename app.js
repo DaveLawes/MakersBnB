@@ -15,7 +15,9 @@ app.use(cookieSession({
 
 app.get("/", function (req, res) {
   var name = req.session.name;
-  res.render("index");
+  res.render("index", {
+    name: name
+  });
 });
 
 app.post("/register", function (req, res) {
