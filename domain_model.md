@@ -24,20 +24,20 @@ Server (Sinatra Framework) is listening on a specific port
    app.rb                       Model
 ╔════════════╗             ╔════════════╗
 ║            ║------------>║            ║
-║ Controller ║             ║    User    ║
-║            ║<------------║   (class)  ║
+║ Controller ║             ║    Model   ║
+║            ║<------------║            ║
 ╚════════════╝             ╚════════════╝
       |                           |
 ╔════════════╗                    |              ╔════════════╗
 ║            ║                    |              ║            ║
-║   Views    ║                    |------------->║  Property  ║
-║            ║                    |              ║  (class)   ║
-╚════════════╝                    |              ╚════════════╝
- Embedded Ruby?                   |                     |
+║   Views    ║                    |------------->║  Property  ║<-----------------------
+║            ║                    |              ║  (class)   ║                       |
+╚════════════╝                    |              ╚════════════╝                       |
+ Embedded Ruby?                   |                     |                             |
                                   |              ╔════════════╗    SQL query    ╔════════════╗
-                                  |              ║            ║---------------->║    SQL     ║
-                                  |------------->║ActiveRecord║ {result object} ║  Database  ║
-                                                 ║    (ORM)   ║<----------------║            ║
+                                  |              ║            ║                 ║    SQL     ║
+                                  |------------->║    User.   ║<--------------->║  Database  ║
+                                                 ║   (class)  ║                 ║            ║
                                                  ╚════════════╝                 ╚════════════╝
 
 ```
