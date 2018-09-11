@@ -3,20 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <title>MakersBnB</title>
-  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
   
-  <h1>Welcome to MakersBnB</h1>
+  <div id="welcomeWrapper">
+    <h1 id="welcome">Welcome to MakersBnB</h1>
 
-  <h2>Sign-up</h2>
+    <h2 class="sub-title">Sign-up</h2>
 
-  <form action="/register" method="post">
-    <input type="text" name="name" value="name">
-    <input type="email" name="email" value="email">
-    <input type="password" name="password" value="password">
-    <input type="submit" name="Submit" value="submit">  
-  </form>
+    <div id="signupWrapper">
+      <form action="/register" method="post">
+        <input id="name" type="text" name="name" value="name">
+        <input id="email" type="email" name="email" value="email">
+        <input id="password" type="password" name="password" value="password">
+        <input id="submit" type="submit" name="Submit" value="submit">  
+      </form>
+    </div>
+
+  </div>
 
 </body>
 </html>

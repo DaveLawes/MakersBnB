@@ -1,0 +1,29 @@
+#welcomeWrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 60%;
+  margin: 0 auto;
+}
+
+#welcome {
+  grid-column: 1 / 4;
+  text-align: center;
+}
+
+.sub-title {
+  grid-column: 2 / 3;
+  text-align: center;
+}
+
+#signupWrapper {
+  grid-column: 1 / 4;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+  width: 60%;
+  margin: 0 auto;
+}
+
+#name {
+  grid-column: 2 / 4;
+}
