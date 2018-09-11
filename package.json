@@ -1,0 +1,24 @@
+{
+  "name": "makersbnb",
+  "version": "1.0.0",
+  "description": "MVP using Express",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaveLawes/MakersBnB.git"
+  },
+  "keywords": [
+    "Node",
+    "Express",
+    "Javascript"
+  ],
+  "author": "Esam and Mathilde",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DaveLawes/MakersBnB/issues"
+  },
+  "homepage": "https://github.com/DaveLawes/MakersBnB#readme"
+}
