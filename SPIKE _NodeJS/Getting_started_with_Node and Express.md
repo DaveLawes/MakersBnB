@@ -88,8 +88,89 @@ app.get("/users/:name/:property", function (req, res) {
 
 In this example the whole params object is sent to the page. To access just the name params use `req.params.name`
 
+### Express and POST requests
 
-### Resources
+In order to read data from post requests you need to install Body Parser. 
+
+```
+npm install body-parser --save
+```
+
+Then in your controller file:
+
+```
+//require the module
+var bodyParser = require('body-parser');
+
+//configure the module
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+```
+
+
+# EJS (Embedded JavaScript)
+* EJS is to Express what ERB is to Sinatra. 
+
+### Install
+`npm install ejs --save"
+
+Place your `.ejs` files in a 'views' folder. 
+
+Then in your controller file (`index.js` or `app.js`) you need to set your 'view engine' to look for ejs files: 
+
+```
+app.set('view engine', 'ejs');
+```
+
+Now in your routes you can use `res.render(filename);` to direct your route to your ejs file. You don't need to include the file extension. 
+
+```
+app.get("/", function (req, res) {
+  res.render("homepage");
+});
+```
+This will look in your views folder for a file called `homepage.ejs`
+
+### Sending data to EJS file
+
+To get data from your route into your ejs file, you can pass an object into the `render` function, like so:
+
+```
+app.get("/users", function(req, res) {
+  var name_input = "Dumbledore";
+  var property_input = "Hogwarts";
+
+  res.render("users", {
+    name: name_input,
+    property: property_input
+  });
+});
+```
+
+Then in the users view:
+
+* Use `<%=` `%>` tags to wrap your JS data.  
+
+```
+<h1> <%= name %> </h1>
+<h3> <%= property %> </h3>
+```
+
+# Sessions
+(under construction)
+
+`npm install express-sessions --save"
+
+Require in your controller file:
+
+```
+var session = require("express-sessions");
+```
+
+** Still figuring out the configuration for the sessions **
+
+
+# Resources
 Our test repo: https://github.com/EsamAl-Dabagh/node_test 
 
 Node: https://nodejs.org/en/
@@ -97,6 +178,8 @@ Node: https://nodejs.org/en/
 NPM: https://www.npmjs.com/
 
 Express: https://expressjs.com/en/starter/installing.html 
+
+EJS: https://scotch.io/tutorials/use-ejs-to-template-your-node-application
 
 
 # Testing
