@@ -21,7 +21,7 @@ Server (Sinatra Framework) is listening on a specific port
       |
       |
       |
-   app.rb                       Model
+   app.rb                        
 ╔════════════╗             ╔════════════╗
 ║            ║------------>║            ║
 ║ Controller ║             ║    Model   ║
