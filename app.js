@@ -14,16 +14,29 @@ app.use(cookieSession({
 }));
 
 app.get("/", function (req, res) {
-  var name = req.session.name;
-  res.render("index", {
-    name: name
-  });
+  res.render("index");
 });
 
 app.post("/register", function (req, res) {
   req.session.name = req.body.name;
-  res.redirect("/");
+  res.redirect("/properties");
 });
+
+app.get("/login", function (req, res) {
+  res.render("login");
+});
+
+app.post("/login", function(req, res) {
+  req.session.name = req.body.name;
+  res.redirect("/properties");
+});
+
+app.get("/properties", function(req, res) {
+  var name = req.session.name;
+  res.render("properties", {
+    name: name
+  });
+})
 
 app.listen(3000, function () {
   console.log('Server started!');
