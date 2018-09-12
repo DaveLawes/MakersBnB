@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var cookieParser = require("cookie-parser");
 var cookieSession = require("cookie-session");
 
+module.exports = app;
+
 //configure the
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -12,6 +14,10 @@ app.use(cookieParser());
 app.use(cookieSession({
   secret: "makers-makers-makers"
 }));
+
+app.get('*', (req, res) => res.status(200).send(
+  'Welcome to the beginning of nothingness.',
+));
 
 app.get("/", function (req, res) {
   res.render("index");
