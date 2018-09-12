@@ -1,7 +1,7 @@
 # MakersBnB
 
 A web application that allows users to list spaces they have available, and to hire spaces for the night.  
-Code with :  
+Code with :heart: by :  
 - [Andrew Wood](https://github.com/andrewwood2)  
 - [Becky Sedgwick](https://github.com/rebeccasedgwick)  
 - [Dave Lawes](https://github.com/DaveLawes/)  
