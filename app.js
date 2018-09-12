@@ -34,7 +34,7 @@ app.post("/register", function (req, res) {
 });
 
 app.get("/login", function (req, res) {
-  res.render("login");
+  res.render("pages/login");
 });
 
 app.post("/login", function(req, res) {
@@ -50,11 +50,16 @@ app.get("/properties", function(req, res) {
   // don't really want email but without user objects
   // we are limited to things provided by user on
   // the log in page. Eventually use FIND on database
-  res.render("properties", {
+  res.render("pages/properties", {
     name: name,
     email: email
   });
-})
+});
+
+app.get("/logout", function(req, res) {
+  req.session = null;
+  res.redirect("/");
+});
 
 app.listen(3000, function () {
   console.log('Server started!');

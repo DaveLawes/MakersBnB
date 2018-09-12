@@ -29,11 +29,21 @@ describe('User visits homepage', function() {
     it('should see welcome page', function() {
       browser.assert.text('h1', 'Welcome to MakersBNB');
     });
+
+    describe('Clicks sign out button', function() {
+      beforeEach(function() {
+        return browser.clickLink('Sign out');
+      });
+
+      it('is back on the register page', function() {
+        browser.assert.element('form input[name=name]');
+      });
+    });
   });
 
   describe('User clicks log in', function() {
     beforeEach(function() {
-      return browser.pressButton('Log in')
+      return browser.clickLink('Login')
     })
     it('Has clicked Log in', function() {
       browser.assert.success();
