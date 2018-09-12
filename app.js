@@ -15,9 +15,9 @@ app.use(cookieSession({
   secret: "makers-makers-makers"
 }));
 
-app.get('*', (req, res) => res.status(200).send(
-  'Welcome to the beginning of nothingness.',
-));
+// app.get('*', (req, res) => res.status(200).send(
+//   'Welcome to the beginning of nothingness.',
+// ));
 
 app.get("/", function (req, res) {
   res.render("index");
