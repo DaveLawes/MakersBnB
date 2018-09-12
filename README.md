@@ -1,11 +1,33 @@
 # MakersBnB
 
-A web application that allows users to list spaces they have available, and to hire spaces for the night.
+A web application that allows users to list spaces they have available, and to hire spaces for the night.  
+Code with :heart: by :  
+- [Andrew Wood](https://github.com/andrewwood2)  
+- [Becky Sedgwick](https://github.com/rebeccasedgwick)  
+- [Dave Lawes](https://github.com/DaveLawes/)  
+- [Esam Al-Dabagh](https://github.com/EsamAl-Dabagh)  
+- [Mathilde Ferrand](https://github.com/ChocolatineMathou)  
+- [Rashika Patel](https://github.com/cbp10)
 
 ## MVP
 
 Users can list spaces on the web application that are visible to all.
 
+## Technologies
+This project was built with Javascript and the testing framework [Jasmine](https://jasmine.github.io/) paired with [Zombie](http://zombie.js.org/) to test the user experience of this web-based application.  
+We also decided to use the MVC [Express](https://expressjs.com/) as it seemed easy to set up for a first experience.
+
+## How to install
+
+Make sure you already have Node.js on your machine or download it from [here](https://nodejs.org/en/).
+You can now move to the following steps:
+```
+$ git clone git@github.com:DaveLawes/MakersBnB.git  
+cd MakersBNB  
+npm install
+node app.js
+```
+Then in your favorite browser type `localhost:3000/` to access the homepage.
 
 ## User Stories
 
