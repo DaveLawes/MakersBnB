@@ -1,6 +1,8 @@
 
 const express = require('express')
 const bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
 
 const app = express();
 module.exports = app;
@@ -8,20 +10,8 @@ module.exports = app;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.get('*', (req, res) => res.status(200).send(
-//   'Welcome to the beginning of nothingness.',
-// ));
-
-// var express = require('express');
-// var app = express();
-// var bodyParser = require('body-parser');
-var cookieParser = require("cookie-parser");
-var cookieSession = require("cookie-session");
-
-//configure the
 app.set('view engine', 'ejs');
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
+
 app.use(cookieParser());
 app.use(cookieSession({
   secret: "makers-makers-makers"
