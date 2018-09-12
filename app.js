@@ -19,6 +19,7 @@ app.get("/", function (req, res) {
 
 app.post("/register", function (req, res) {
   req.session.name = req.body.name;
+  req.session.email = req.body.email;
   res.redirect("/properties");
 });
 
@@ -27,14 +28,21 @@ app.get("/login", function (req, res) {
 });
 
 app.post("/login", function(req, res) {
-  req.session.name = req.body.name;
+  req.session.email = req.body.email;
   res.redirect("/properties");
 });
 
 app.get("/properties", function(req, res) {
+  var email = req.session.email;
   var name = req.session.name;
+  console.log(email);
+  console.log(name);
+  // don't really want email but without user objects
+  // we are limited to things provided by user on
+  // the log in page. Eventually use FIND on database
   res.render("properties", {
-    name: name
+    name: name,
+    email: email
   });
 })
 

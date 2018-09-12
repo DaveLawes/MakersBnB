@@ -14,7 +14,7 @@ describe('User visits homepage', function() {
     return browser.visit('/');
   });
 
-  describe('submits form', function() {
+  describe('Register', function() {
     beforeEach(function() {
       browser.fill('email',    'mathilde@email.com');
       browser.fill('name',    'mathilde');
@@ -31,33 +31,43 @@ describe('User visits homepage', function() {
     });
   });
 
-  it('Clicks log-in and logs in', function() {
-    return browser.pressButton('Log in')
-    browser.assert.success();
-    browser.fill('email', 'mathilde@email.com')
-    browser.fill('password', '1234')
-    return browser.pressButton('Submit')
-    browser.assert.text('h1', 'Welcome to MakersBNB')
-    browser.assert.text('h3', 'mathilde')
-  });
-});
+  describe('User clicks log in', function() {
+    beforeEach(function() {
+      return browser.pressButton('Log in')
+    })
+    it('Has clicked Log in', function() {
+      browser.assert.success();
+    })
 
-describe('List a space', function() {
-  beforeEach(function() {
-    return browser.visit('/properties');
-  });
+    describe('User enters details and clicks submit', function() {
+      beforeEach(function() {
+        browser.fill('email', 'mathilde@email.com')
+        browser.fill('password', '1234')
+        return browser.pressButton('Submit')
+      })
+      it('Should show the users name on the page', function() {
+        // AWAITING USER OBJECTS AND DATABASE
 
-  it('User can list a new space', function() {
-    // browser.fill('email', 'mathilde@email.com')
-    // browser.fill('password', '1234')
-    // return browser.pressButton('Submit')
-    return browser.pressButton('List a space');
-    console.log("test");
-    browser.assert.text('h1', 'MakersBNB');
-    browser.assert.text('h2', 'title');
-    // browser.assert.elements('form input[name=title]');
-    // browser.assert.elements('form input[name=description]');
-    // browser.assert.elements('form input[name=price]');
-    // browser.assert.elements('form input[name=submit]');
+        // browser.assert.text('h3', 'mathilde')
+        browser.assert.text('h3', 'mathilde@email.com')
+      });
+
+      describe('Go to property page', function() {
+        beforeEach(function() {
+          return browser.visit('/properties');
+        });
+
+        describe('User clicks list a space', function() {
+          beforeEach(function() {
+            return browser.pressButton('List a space');
+          });
+          it('User can list a new space', function() {
+            browser.assert.text('h1', 'Welcome to MakersBNB');
+            browser.assert.text('h2', 'title');
+          })
+        })
+      });
+
+    });
   });
 });
