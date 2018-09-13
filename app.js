@@ -37,7 +37,7 @@ app.use(cookieSession({
 app.get("/", function (req, res) {
   var name = req.session.name;
 
-  res.render("pages/index");
+  res.render("pages/index", {msg:false});
 });
 
 app.post("/register", function (req, res) {
@@ -53,10 +53,14 @@ app.post("/register", function (req, res) {
       email: req.body.email,
       password: req.body.password
     })
+    
     .then(function (result) {
       req.session.name = result.dataValues.name;
       req.session.email = result.dataValues.email;
       res.redirect("/properties");
+    })
+    .catch(Sequelize.ValidationError, function (err) {
+      res.render("pages/index", { msg:true}); 
     });
 
 
