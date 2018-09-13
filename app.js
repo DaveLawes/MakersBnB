@@ -33,7 +33,7 @@ User.sync({force: false}).then(() => {
   return User.create({
     name: 'John',
     email: 'john@john.com',
-    password: 'pwd1267891011'
+    password: 'pwd126789101'
   });
 });
 
@@ -42,7 +42,7 @@ User.sync({force: false}).then(() => {
 user1 = User.create({
   name: 'Dave',
   email: 'dave@email.com',
-  password: '1234567891011'
+  password: '123456789101'
 });
 
 module.exports = app;
