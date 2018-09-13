@@ -1,11 +1,11 @@
 const Browser = require('zombie');
 const Helper = require('./helpers/web_helpers')
 
-// We're going to make requests to http://example.com/signup
-// Which will be routed to our test server localhost:3000
-
 Browser.localhost('example.com', 3000);
-const app = require('../app')
+// BEFORE RUNNING TESTS, MANUALLY BOOT UP TO LOCALHOST OTHERWISE EVERYTHING FAILS
+
+// THIS LINE IS HAVING NO EFFECT:
+// const app = require('../app')
 
 // process.env.NODE_ENV = 'test'
 
@@ -13,8 +13,10 @@ const browser = new Browser();
 
 describe('User visits homepage', function() {
   beforeEach(function() {
-    process.env.NODE_ENV ='test'
-    return browser.visit('/');
+    // process.env.NODE_ENV ='test'
+    browser.visit('/');
+    console.log(browser.html());
+    return browser.visit('/')
   });
 
   describe('Register', function() {
@@ -30,7 +32,7 @@ describe('User visits homepage', function() {
     });
 
     it('should see welcome page', function() {
-      browser.assert.text('h3', 'All Properties');
+      browser.assert.text('.sub-title', 'All Properties');
     });
 
     describe('Clicks sign out button', function() {
@@ -58,33 +60,31 @@ describe('User visits homepage', function() {
         browser.fill('password', '1234')
         return browser.pressButton('Submit')
       })
+
+/*
+THE TEST BELOW IS NOW NOT THE FUNCTIONALITY OF THE SITE. AFTER 'SUBMIT' BUTTON PRESSED, REDIRECT IS TO THE PROPERTIES PAGE AND THIS DOES NOT SHOW THE LOGGED-IN USER. THEREFORE THIS TEST NEEDS TO BE UPDATED:
       it('Should show the users name on the page', function() {
         // AWAITING USER OBJECTS AND DATABASE
-
-<<<<<<< HEAD
-        // browser.assert.text('h3', 'mathilde')
-        // browser.assert.text('h3', 'mathilde@email.com')
-=======
         browser.assert.text('h3', 'mathilde')
         browser.assert.text('h3', 'mathilde@email.com')
->>>>>>> origin/master
       });
+*/
 
-      describe('Go to property page', function() {
-        beforeEach(function() {
-          return browser.visit('/properties');
-        });
+      // describe('Go to property page', function() {
+      //   beforeEach(function() {
+      //     return browser.visit('/properties');
+      //   });
 
-        describe('User clicks list a space', function() {
-          beforeEach(function() {
-            return browser.pressButton('List a space');
-          });
-          it('User can list a new space', function() {
-            browser.assert.text('h1', 'Welcome to MakersBNB');
-            browser.assert.text('h2', 'title');
-          })
-        })
-      });
+        // describe('User clicks list a space', function() {
+        //   beforeEach(function() {
+        //     return browser.pressButton('List a space');
+        //   });
+        //   it('User can list a new space', function() {
+        //     browser.assert.text('h1', 'Welcome to MakersBNB');
+        //     browser.assert.text('h2', 'title');
+        //   })
+        // })
+      // });
 
     });
   });
@@ -95,7 +95,7 @@ describe('View all properties', function() {
     return browser.visit('/properties');
   });
 
-  it('expect to show all properties', function() {
-    browser.assert.text('h3', 'All Properties');
+  it('expect to have title of properties page', function() {
+    browser.assert.text('.sub-title', 'All Properties');
   });
 });

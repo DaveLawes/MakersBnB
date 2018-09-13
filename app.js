@@ -18,22 +18,13 @@ const Property = require(path.join(__dirname, 'server/models/property'))(sequeli
   Maybe we just need User.create below as our tables do exist.
   force: true above will delete the table and create a new one.
   */
-<<<<<<< HEAD
-  return User.create({
-    name: 'John',
-    email: 'john@john.com',
-    password: 'pwd126789101'
-  });
-});
 
-// Code below works too
-
-user1 = User.create({
-  name: 'Dave',
-  email: 'dave@email.com',
-  password: '123456789101'
-});
-=======
+//   return User.create({
+//     name: 'John',
+//     email: 'john@john.com',
+//     password: 'pwd126789101'
+//   });
+// });
 //   return Property.create({
 //     title: 'Shack by the sea',
 //     description: 'Super crappy',
@@ -49,7 +40,6 @@ user1 = User.create({
 //   email: 'dave@email.com',
 //   password: '1234567891011'
 // });
->>>>>>> origin/master
 
 module.exports = app;
 
@@ -92,7 +82,7 @@ app.get("/properties", function (req, res) {
       properties: result
     });
   });
-  
+
 });
 
 app.get("/logout", function (req, res) {
