@@ -4,20 +4,8 @@ const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const path = require('path');
 const app = express();
-require('dotenv').config();
-
-if (process.env.npm_lifecycle_event === 'test') {
-  target_db = process.env.ENV_TEST_DATABASE
-} else {
-  target_db = process.env.ENV_DATABASE
-};
-
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(target_db,
-{
-  host: 'localhost',
-  dialect: 'sqlite3'
-})
+const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))(Sequelize)
 
 const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize)
 const Property = require(path.join(__dirname, 'server/models/property'))(sequelize, Sequelize)
@@ -46,8 +34,11 @@ const Property = require(path.join(__dirname, 'server/models/property'))(sequeli
 //   password: '1234567891011'
 // });
 
+<<<<<<< HEAD
 // console.log(user1);
 
+=======
+>>>>>>> origin/master
 module.exports = app;
 
 app.set('view engine', 'ejs');
