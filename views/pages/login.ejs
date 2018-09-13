@@ -4,7 +4,9 @@
 <h1>Welcome to MakersBNB</h1>
 
 <h2>Login</h2>
-
+<% if (msg) { %>
+ Email/password incorrect
+<% } %>
 <form action="/login" method="post">
   <input type="email" name="email" value="email">
   <input type="password" name="password" value="password">

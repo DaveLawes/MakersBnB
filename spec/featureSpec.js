@@ -32,6 +32,15 @@ describe('User visits homepage', function() {
       browser.assert.text('.email', 'mathilde@email.com');
     });
 
+    it('displays error message if email is already is database', function() {
+      return browser.visit('/');
+      browser.fill('email',    'mathilde@email.com');
+      browser.fill('name',    'mathilde');
+      browser.fill('password', '1234');
+      return browser.pressButton('Submit');          
+      browser.asset.text('Email already taken')
+    });
+
     describe('Clicks sign out button', function() {
       beforeEach(function() {
         return browser.clickLink('Sign out');

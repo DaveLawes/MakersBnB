@@ -43,58 +43,48 @@ app.get("/", function (req, res) {
 });
 
 app.post("/register", function (req, res) {
-  //var userObject;
-  //  User.sync({force: false}).then(() => {
-    /*
-    Table created if doesn't already exist.
-    Maybe we just need User.create below as our tables do exist.
-    force: true above will delete the table and create a new one.
-    */
     User.create({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password
     })
-    
+
     .then(function (result) {
       req.session.name = result.dataValues.name;
       req.session.email = result.dataValues.email;
       res.redirect("/properties");
     })
     .catch(Sequelize.ValidationError, function (err) {
-      res.render("pages/index", { msg:true}); 
+      res.render("pages/index", { msg:true});
     });
-
-
-//  });
-  // read form data and parse it to database
-  // put user id into cookiesession
-  // provide the user object to the view
-  // make sure view renders with correct user information
-
 });
 
 app.get("/login", function (req, res) {
-  res.render("pages/login");
+  res.render("pages/login", {msg:false});
 });
 
 app.post("/login", function (req, res) {
-  req.session.email = req.body.email;
-  res.redirect("/properties");
+  User.findAll({
+    where: {
+      email: req.body.email,
+      password: req.body.password
+    }
+  })
+  .then(function (result) {
+    console.log(result[0].dataValues);
+    req.session.name = result[0].dataValues.name;
+    req.session.email = result[0].dataValues.email;
+    res.redirect("/properties");
+  })
+  .catch(function (err) {
+    res.render("pages/login", {msg:true});
+  });
 });
 
 app.get("/properties", function (req, res) {
-  var email = req.session.email;
-  var name = req.session.name;
-
-/*
- * Don't really want email but without user objects
- * We are limited to things provided by user on
- * The log in page. Eventually use FIND on database
- */
   res.render("pages/properties", {
-    email: email, // userObject.email
-    name: name //userObject.name
+    email: req.session.name, // userObject.email
+    name: req.session.email//userObject.name
   });
 });
 
