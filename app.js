@@ -15,22 +15,7 @@ const sequelize = new Sequelize(process.env.ENV_TEST_DATABASE,
   dialect: 'sqlite3'
 })
 
-const User = require(path.join(__dirname, 'server/models/test'))(sequelize, Sequelize)
-
-
-//BELOW CODE WILL ADD TO DATABASE
-User.sync({force: false}).then(() => {
-  /*
-  Table created if doesn't already exist.
-  Maybe we just need User.create below as our tables do exist.
-  force: true above will delete the table and create a new one.
-  */
-  return User.create({
-    name: 'John',
-    email: 'john@john.com',
-    password: 'pwd12'
-  });
-});
+const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize)
 
 module.exports = app;
 
@@ -52,9 +37,31 @@ app.get("/", function (req, res) {
 });
 
 app.post("/register", function (req, res) {
-  req.session.name = req.body.name;
-  req.session.email = req.body.email;
-  res.redirect("/properties");
+  //var userObject;
+  //  User.sync({force: false}).then(() => {
+    /*
+    Table created if doesn't already exist.
+    Maybe we just need User.create below as our tables do exist.
+    force: true above will delete the table and create a new one.
+    */
+    User.create({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password
+    })
+    .then(function (result) {
+      req.session.name = result.dataValues.name;
+      req.session.email = result.dataValues.email;
+      res.redirect("/properties");
+    });
+
+
+//  });
+  // read form data and parse it to database
+  // put user id into cookiesession
+  // provide the user object to the view
+  // make sure view renders with correct user information
+
 });
 
 app.get("/login", function (req, res) {
@@ -76,8 +83,8 @@ app.get("/properties", function (req, res) {
  * The log in page. Eventually use FIND on database
  */
   res.render("pages/properties", {
-    email: email,
-    name: name
+    email: email, // userObject.email
+    name: name //userObject.name
   });
 });
 

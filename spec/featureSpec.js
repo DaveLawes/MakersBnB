@@ -28,6 +28,8 @@ describe('User visits homepage', function() {
 
     it('should see welcome page', function() {
       browser.assert.text('h1', 'Welcome to MakersBNB');
+      browser.assert.text('.name', 'mathilde');
+      browser.assert.text('.email', 'mathilde@email.com');
     });
 
     describe('Clicks sign out button', function() {
