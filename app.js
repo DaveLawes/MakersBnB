@@ -85,7 +85,6 @@ app.post("/login", function (req, res) {
 app.get("/properties", function (req, res) {
 
   Property.findAll().then(function (result) {
-    console.log(result[0])
     res.render("pages/properties", {
       properties: result
     });

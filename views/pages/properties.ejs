@@ -9,9 +9,11 @@
     <% properties.forEach(function(i) { %>
       <div class="card">
         <img src=" <%= i.dataValues.photo %> ">
-        <h3> <%= i.dataValues.title %> </h3>
-        <h4> <%= i.dataValues.description %> </h4>
-        <p> £<%= i.dataValues.pricePerNight %> per night</p>
+        <div class="cardText">
+          <h3 class="cardTitle"> <%= i.dataValues.title %> </h3>
+          <p class="cardDesc"> <%= i.dataValues.description %> </p>
+          <p class="price"> £<%= i.dataValues.pricePerNight %> per night</p>
+      </div>
       </div>
     <% }) %>
   
