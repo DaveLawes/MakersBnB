@@ -6,7 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING(1000),
     pricePerNight: DataTypes.INTEGER,
     photo: DataTypes.STRING
-  }, {});
+  }, {
+    timestamps: false
+  });
   property.associate = function(models) {
     property.belongsTo(models.user);
   };
