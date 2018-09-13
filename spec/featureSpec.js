@@ -27,6 +27,7 @@ describe('User visits homepage', function() {
     });
 
     it('should see welcome page', function() {
+<<<<<<< HEAD
       browser.assert.text('h1', 'Welcome to MakersBNB');
       browser.assert.text('.name', 'mathilde');
       browser.assert.text('.email', 'mathilde@email.com');
@@ -39,6 +40,9 @@ describe('User visits homepage', function() {
       browser.fill('password', '1234');
       return browser.pressButton('Submit');          
       browser.asset.text('Email already taken')
+=======
+      browser.assert.text('h3', 'All Properties');
+>>>>>>> origin/master
     });
 
     describe('Clicks sign out button', function() {
@@ -69,7 +73,7 @@ describe('User visits homepage', function() {
       it('Should show the users name on the page', function() {
         // AWAITING USER OBJECTS AND DATABASE
 
-        // browser.assert.text('h3', 'mathilde')
+        browser.assert.text('h3', 'mathilde')
         browser.assert.text('h3', 'mathilde@email.com')
       });
 
@@ -90,5 +94,15 @@ describe('User visits homepage', function() {
       });
 
     });
+  });
+});
+
+describe('View all properties', function() {
+  beforeEach(function() {
+    return browser.visit('/properties');
+  });
+
+  it('expect to show all properties', function() {
+    browser.assert.text('h3', 'All Properties');
   });
 });

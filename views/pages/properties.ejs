@@ -1,8 +1,29 @@
 <% include ../partials/header.ejs %>
 <% include ../partials/nav.ejs %>
 
+<<<<<<< HEAD
 <h1>Welcome to MakersBNB</h1>
 <h3 class="name"><%= name %></h3><br>
 <h3 class="email"><%= email %></h3>
+=======
+<h3 class="sub-title">All Properties</h3>
+
+<div id="propertyWrapper">
+
+  
+    <% properties.forEach(function(i) { %>
+      <div class="card">
+        <img src=" <%= i.dataValues.photo %> ">
+        <div class="cardText">
+          <h3 class="cardTitle"> <%= i.dataValues.title %> </h3>
+          <p class="cardDesc"> <%= i.dataValues.description %> </p>
+          <p class="price"> £<%= i.dataValues.pricePerNight %> per night</p>
+      </div>
+      </div>
+    <% }) %>
+  
+
+</div>
+>>>>>>> origin/master
 
 <% include ../partials/footer.ejs %>

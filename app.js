@@ -15,13 +15,10 @@ if (process.env.npm_lifecycle_event === 'test') {
 };
 
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(target_db,
-{
-  host: 'localhost',
-  dialect: 'sqlite3'
-})
+const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))(Sequelize)
 
 const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize)
+const Property = require(path.join(__dirname, 'server/models/property'))(sequelize, Sequelize)
 
 module.exports = app;
 
@@ -82,10 +79,13 @@ app.post("/login", function (req, res) {
 });
 
 app.get("/properties", function (req, res) {
-  res.render("pages/properties", {
-    email: req.session.name, // userObject.email
-    name: req.session.email//userObject.name
+
+  Property.findAll().then(function (result) {
+    res.render("pages/properties", {
+      properties: result
+    });
   });
+
 });
 
 app.get("/logout", function (req, res) {
