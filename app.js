@@ -20,34 +20,6 @@ const sequelize = new Sequelize(target_db,
 })
 
 const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize)
-<<<<<<< HEAD
-=======
-
-
-//BELOW CODE WILL ADD TO DATABASE
-User.sync({force: false}).then(() => {
-  /*
-  Table created if doesn't already exist.
-  Maybe we just need User.create below as our tables do exist.
-  force: true above will delete the table and create a new one.
-  */
-  return User.create({
-    name: 'John',
-    email: 'john@john.com',
-    password: 'pwd1267891011'
-  });
-});
->>>>>>> origin/master
-
-// Code below creates a user too, but only returns a promise.
-
-user1 = User.create({
-  name: 'Dave',
-  email: 'dave@email.com',
-  password: '1234567891011'
-});
-
-console.log(user1);
 
 module.exports = app;
 
