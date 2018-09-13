@@ -34,11 +34,6 @@ const Property = require(path.join(__dirname, 'server/models/property'))(sequeli
 //   password: '1234567891011'
 // });
 
-<<<<<<< HEAD
-// console.log(user1);
-
-=======
->>>>>>> origin/master
 module.exports = app;
 
 app.set('view engine', 'ejs');

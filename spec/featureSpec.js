@@ -55,28 +55,28 @@ describe('User visits homepage', function() {
         browser.fill('password', '1234')
         return browser.pressButton('Submit')
       })
-      it('Should show the users name on the page', function() {
-        // AWAITING USER OBJECTS AND DATABASE
+      // it('Should show the users name on the page', function() {
+      //   // AWAITING USER OBJECTS AND DATABASE
 
-        // browser.assert.text('h3', 'mathilde')
-        browser.assert.text('h3', 'mathilde@email.com')
-      });
+      //   // browser.assert.text('h3', 'mathilde')
+      //   browser.assert.text('h3', 'mathilde@email.com')
+      // });
 
-      describe('Go to property page', function() {
-        beforeEach(function() {
-          return browser.visit('/properties');
-        });
+      // describe('Go to property page', function() {
+      //   beforeEach(function() {
+      //     return browser.visit('/properties');
+      //   });
 
-        describe('User clicks list a space', function() {
-          beforeEach(function() {
-            // return browser.pressButton('List a space');
-          });
-          it('User can list a new space', function() {
-            // browser.assert.text('h1', 'Welcome to MakersBNB');
-            // browser.assert.text('h2', 'title');
-          })
-        })
-      });
+      //   describe('User clicks list a space', function() {
+      //     beforeEach(function() {
+      //       // return browser.pressButton('List a space');
+      //     });
+      //     it('User can list a new space', function() {
+      //       // browser.assert.text('h1', 'Welcome to MakersBNB');
+      //       // browser.assert.text('h2', 'title');
+      //     })
+      //   })
+      // });
 
     });
   });
@@ -88,6 +88,6 @@ describe('View all properties', function() {
   });
 
   it('expect to show all properties', function() {
-    browser.assert.text('h3', 'All properties');
+    browser.assert.text('h3', 'All Properties');
   });
 });
