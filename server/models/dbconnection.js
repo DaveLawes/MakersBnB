@@ -1,5 +1,4 @@
 require('dotenv').config();
-// const Sequelize = require('sequelize');
 
 module.exports = (Sequelize) => {
   if (process.env.npm_lifecycle_event === 'test') {

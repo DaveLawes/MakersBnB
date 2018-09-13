@@ -4,7 +4,6 @@ const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const path = require('path');
 const app = express();
-
 const Sequelize = require('sequelize');
 const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))(Sequelize)
 
