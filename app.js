@@ -7,6 +7,30 @@ const app = express();
 
 const path = require('path');
 
+require('dotenv').config();
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize(process.env.ENV_TEST_DATABASE,
+{
+  host: 'localhost',
+  dialect: 'sqlite3'
+})
+
+const User = require(path.join(__dirname, 'server/models/test'))(sequelize, Sequelize)
+
+
+//BELOW CODE WILL ADD TO DATABASE
+User.sync({force: false}).then(() => {
+  /*
+  Table created if doesn't already exist.
+  Maybe we just need User.create below as our tables do exist.
+  force: true above will delete the table and create a new one.
+  */
+  return User.create({
+    name: 'John',
+    email: 'john@john.com',
+    password: 'pwd12'
+  });
+});
 
 module.exports = app;
 
@@ -21,10 +45,6 @@ app.use(cookieParser());
 app.use(cookieSession({
   secret: "makers-makers-makers"
 }));
-
-// app.get('*', (req, res) => res.status(200).send(
-//   'Welcome to the beginning of nothingness.',
-// ));
 
 app.get("/", function (req, res) {
   var name = req.session.name;
@@ -49,8 +69,7 @@ app.post("/login", function(req, res) {
 app.get("/properties", function(req, res) {
   var email = req.session.email;
   var name = req.session.name;
-  console.log(email);
-  console.log(name);
+
   // don't really want email but without user objects
   // we are limited to things provided by user on
   // the log in page. Eventually use FIND on database
