@@ -2,14 +2,19 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
-
-const app = express();
-
 const path = require('path');
-
+const app = express();
 require('dotenv').config();
+
+if (process.env.npm_lifecycle_event === 'test') {
+  target_db = process.env.ENV_TEST_DATABASE
+} else {
+  console.log('production db route');
+  target_db = process.env.ENV_DATABASE
+};
+
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(process.env.ENV_TEST_DATABASE,
+const sequelize = new Sequelize(target_db,
 {
   host: 'localhost',
   dialect: 'sqlite3'

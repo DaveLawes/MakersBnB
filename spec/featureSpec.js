@@ -7,6 +7,8 @@ const Helper = require('./helpers/web_helpers')
 Browser.localhost('example.com', 3000);
 const app = require('../app')
 
+process.env.NODE_ENV = 'test'
+
 const browser = new Browser();
 
 describe('User visits homepage', function() {
