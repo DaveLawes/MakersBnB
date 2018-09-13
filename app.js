@@ -7,6 +7,30 @@ const app = express();
 
 const path = require('path');
 
+require('dotenv').config();
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize(process.env.ENV_TEST_DATABASE,
+{
+  host: 'localhost',
+  dialect: 'sqlite3'
+})
+
+const User = require(path.join(__dirname, 'server/models/test'))(sequelize, Sequelize)
+
+
+//BELOW CODE WILL ADD TO DATABASE
+User.sync({force: false}).then(() => {
+  /*
+  Table created if doesn't already exist.
+  Maybe we just need User.create below as our tables do exist.
+  force: true above will delete the table and create a new one.
+  */
+  return User.create({
+    name: 'John',
+    email: 'john@john.com',
+    password: 'pwd12'
+  });
+});
 
 module.exports = app;
 
