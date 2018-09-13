@@ -20,7 +20,7 @@ const sequelize = new Sequelize(target_db,
   dialect: 'sqlite3'
 })
 
-const User = require(path.join(__dirname, 'server/models/test'))(sequelize, Sequelize)
+const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize)
 
 
 //BELOW CODE WILL ADD TO DATABASE
@@ -33,8 +33,16 @@ User.sync({force: false}).then(() => {
   return User.create({
     name: 'John',
     email: 'john@john.com',
-    password: 'pwd12'
+    password: 'pwd1267891011'
   });
+});
+
+// Code below works too
+
+user1 = User.create({
+  name: 'Dave',
+  email: 'dave@email.com',
+  password: '1234567891011'
 });
 
 module.exports = app;
