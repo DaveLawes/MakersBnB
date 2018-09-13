@@ -6,10 +6,12 @@
 <div id="propertyWrapper">
 
   
-    <% user.forEach(function(i) { %>
+    <% properties.forEach(function(i) { %>
       <div class="card">
-        <h4> <%= i.dataValues.name %> </h4>
-        <h4> <%= i.dataValues.email %> </h4>
+        <img src=" <%= i.dataValues.photo %> ">
+        <h3> <%= i.dataValues.title %> </h3>
+        <h4> <%= i.dataValues.description %> </h4>
+        <p> £<%= i.dataValues.pricePerNight %> per night</p>
       </div>
     <% }) %>
   

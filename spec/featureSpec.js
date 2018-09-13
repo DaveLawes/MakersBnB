@@ -81,3 +81,13 @@ describe('User visits homepage', function() {
     });
   });
 });
+
+describe('View all properties', function() {
+  beforeEach(function() {
+    return browser.visit('/properties');
+  });
+
+  it('expect to show all properties', function() {
+    browser.assert.text('h3', 'All properties');
+  });
+});

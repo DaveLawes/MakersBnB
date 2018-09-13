@@ -32,6 +32,12 @@ h1 {
    border-radius: 8px;
 }
 
+.card img {
+  height: auto;
+  width: 100%;
+  overflow: hidden;
+}
+
 #welcome {
   grid-column: 2 / 3;
   text-align: center;
