@@ -18,6 +18,47 @@ h1 {
   margin: 0 auto;
 }
 
+#propertyWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  width: 70%;
+  margin: 0 auto;
+}
+
+.card {
+   background-color:  #122f31;
+   color: #ebe3e3;
+   margin: 4%;
+   padding: 0;
+   border-radius: 8px;
+   position: relative;
+}
+
+.card img {
+  height: auto;
+  width: 100%;
+  
+}
+
+.cardText {
+  padding-left: 4%;
+}
+
+.cardTitle {
+  text-transform: uppercase;
+  margin-bottom: 1%;
+}
+
+.cardDesc {
+  font-size: 1em;
+  font-weight: 100;
+  margin-top: 2%;
+}
+
+.price {
+  font-size: 0.8em;
+}
+
 #welcome {
   grid-column: 2 / 3;
   text-align: center;

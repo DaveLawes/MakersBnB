@@ -27,7 +27,7 @@ describe('User visits homepage', function() {
     });
 
     it('should see welcome page', function() {
-      browser.assert.text('h1', 'Welcome to MakersBNB');
+      browser.assert.text('h3', 'All Properties');
     });
 
     describe('Clicks sign out button', function() {
@@ -58,7 +58,7 @@ describe('User visits homepage', function() {
       it('Should show the users name on the page', function() {
         // AWAITING USER OBJECTS AND DATABASE
 
-        // browser.assert.text('h3', 'mathilde')
+        browser.assert.text('h3', 'mathilde')
         browser.assert.text('h3', 'mathilde@email.com')
       });
 
@@ -69,15 +69,25 @@ describe('User visits homepage', function() {
 
         describe('User clicks list a space', function() {
           beforeEach(function() {
-            // return browser.pressButton('List a space');
+            return browser.pressButton('List a space');
           });
           it('User can list a new space', function() {
-            // browser.assert.text('h1', 'Welcome to MakersBNB');
-            // browser.assert.text('h2', 'title');
+            browser.assert.text('h1', 'Welcome to MakersBNB');
+            browser.assert.text('h2', 'title');
           })
         })
       });
 
     });
+  });
+});
+
+describe('View all properties', function() {
+  beforeEach(function() {
+    return browser.visit('/properties');
+  });
+
+  it('expect to show all properties', function() {
+    browser.assert.text('h3', 'All Properties');
   });
 });

@@ -8,29 +8,31 @@ const Sequelize = require('sequelize');
 const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))(Sequelize)
 
 const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize)
+const Property = require(path.join(__dirname, 'server/models/property'))(sequelize, Sequelize)
 
 
 //BELOW CODE WILL ADD TO DATABASE
-User.sync({force: false}).then(() => {
+// Property.sync({force: false}).then(() => {
   /*
   Table created if doesn't already exist.
   Maybe we just need User.create below as our tables do exist.
   force: true above will delete the table and create a new one.
   */
-  return User.create({
-    name: 'John',
-    email: 'john@john.com',
-    password: 'pwd1267891011'
-  });
-});
+//   return Property.create({
+//     title: 'Shack by the sea',
+//     description: 'Super crappy',
+//     pricePerNight: 20,
+//     photo: ''
+//   });
+// });
 
 // Code below creates a user too, but only returns a promise.
 
-user1 = User.create({
-  name: 'Dave',
-  email: 'dave@email.com',
-  password: '1234567891011'
-});
+// user1 = User.create({
+//   name: 'Dave',
+//   email: 'dave@email.com',
+//   password: '1234567891011'
+// });
 
 module.exports = app;
 
@@ -67,18 +69,13 @@ app.post("/login", function (req, res) {
 });
 
 app.get("/properties", function (req, res) {
-  var email = req.session.email;
-  var name = req.session.name;
 
-/*
- * Don't really want email but without user objects
- * We are limited to things provided by user on
- * The log in page. Eventually use FIND on database
- */
-  res.render("pages/properties", {
-    email: email,
-    name: name
+  Property.findAll().then(function (result) {
+    res.render("pages/properties", {
+      properties: result
+    });
   });
+  
 });
 
 app.get("/logout", function (req, res) {
