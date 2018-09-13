@@ -27,10 +27,7 @@ describe('User visits homepage', function() {
     });
 
     it('should see welcome page', function() {
-<<<<<<< HEAD
-      browser.assert.text('h1', 'Welcome to MakersBNB');
-      browser.assert.text('.name', 'mathilde');
-      browser.assert.text('.email', 'mathilde@email.com');
+      browser.assert.text('h3', 'All Properties')
     });
 
     it('displays error message if email is already is database', function() {
@@ -38,11 +35,8 @@ describe('User visits homepage', function() {
       browser.fill('email',    'mathilde@email.com');
       browser.fill('name',    'mathilde');
       browser.fill('password', '1234');
-      return browser.pressButton('Submit');          
-      browser.asset.text('Email already taken')
-=======
-      browser.assert.text('h3', 'All Properties');
->>>>>>> origin/master
+      return browser.pressButton('Submit');
+      browser.asset.text('Email already taken');
     });
 
     describe('Clicks sign out button', function() {
