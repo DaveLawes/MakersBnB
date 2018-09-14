@@ -20,18 +20,18 @@ THIS SHOULD BE REFACTORED INTO A CONDITIONAL, SO THAT IT ONLY HAPPENS WHEN RUNNI
 NOTE: IN TEST MODE: IF THE TABLES DON'T EXIST, THE FIRST TEST MAY FAIL AND THE REST MAY WORK. AND THEN WHEN YOU RE-RUN THE TESTS, ALL TESTS PASS. THIS IS BECAUSE THE .SYNC HASN'T FINISHED CREATING THE MISSING TABLES BEFORE THE FIRST TEST HAS EXECUTED AND RETURNED IT'S RESULT.
 TO RECREATE: DELETE TABLES FROM TEST DATABASE. RUN TEST SUITE. LOOK FOR THE CONSOLE LOG MESSAGES SHOWING WHEN THE TABLES WERE CREATED (THEY'LL BE RIGHT BEFORE THE TESTS START PASSING!)
 */
-if (process.env.npm_lifecycle_event === 'test') {
-  // Property.sync().then((responses) => {
-  //   console.log('**** properties table set up ****');
-  // })
-  // User.sync().then((responses) => {
-  //   console.log('**** users table set up ****');
-  // })
-  console.log('tables reached');
-  User.truncate()
-  Property.truncate()
-  console.log("tables emptied")
-}
+// if (process.env.npm_lifecycle_event === 'test') {
+//   // Property.sync().then((responses) => {
+//   //   console.log('**** properties table set up ****');
+//   // })
+//   // User.sync().then((responses) => {
+//   //   console.log('**** users table set up ****');
+//   // })
+//   console.log('tables reached');
+//   User.truncate()
+//   Property.truncate()
+//   console.log("tables emptied")
+// }
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -153,3 +153,4 @@ if (process.env.npm_lifecycle_event !== 'test') {
 
 // THIS NEEDS TO BE AT THE END, NOT THE START!
 module.exports = app
+// module.exports = User

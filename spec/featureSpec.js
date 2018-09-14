@@ -3,7 +3,6 @@
 */
 
 const Browser = require('zombie');
-// const Helper = require('./helpers/web_helpers')
 
 /*
 BEFORE RUNNING TESTS, WE WANT TO MAKE SURE THE APP IS UP AND RUNNING ON LOCALHOST - OTHERWISE ZOMBIE CAN'T 'SEE' WHAT'S GOING ON.
@@ -14,38 +13,31 @@ Browser.localhost('example.com', 4000);
 
 var app = require('../app');
 
-/*
-THE LINES RELATING TO SERVER START / STOP CAN BE REFACTORED OUT TO A SEPARATE FILE, E.G. web_helpers (WHICH CAN THEN BE UNCOMMENTED OUT AT THE TOP!)
-WHEN THE FUNCTIONALITY TO WIPE THE TEST DATABASES BEFORE / AFTER EACH IS ADDED, IT SHOULD BE EXTRACTED SIMILARLY
-*/
-
 var server;
-var startServer = () => { server = app.listen(4000) }
-var stopServer = () => { server.close() }
-/*
-THE TWO (startServer / stopServer) HAVE TO BE CALLED IN beforeEach AND afterEach FUNCTIONS - AFAIK THEY CAN'T JUST BE SET ONCE AT START OF TEST SUITE :(
-*/
+var startServer = () => { server = app.listen(4000) };
+var stopServer = () => { server.close() };
+
+// var User;
+// var userTruncate = () => { User.truncate }
 
 const browser = new Browser();
 describe('Global server set up', function(){
   beforeEach(function() {
-    startServer()
+    startServer();
+    // userTruncate()
+      // if err then throw err else done()
+    // })
     return browser.visit('/');
-  })
+  });
 
   afterEach(function(){
-    stopServer()
+    stopServer();
   });
 
 
   describe('User visits homepage', function() {
     beforeEach(function() {
-      // startServer()
       return browser.visit('/');
-    })
-
-    afterEach(function(){
-      // stopServer()
     });
 
     describe('Register', function() {
@@ -103,18 +95,9 @@ describe('Global server set up', function(){
     });
   });
 
-  /*
-  THIS SUITE OF TESTS NEEDS FIXING!
-  PLEASE NOTE ADDITION OF startServer AND stopServer
-  */
   describe('Nav bar', function() {
     beforeEach(function() {
-      // startServer()
       return browser.visit('/');
-    });
-
-    afterEach(function(){
-      // stopServer()
     });
 
     describe('When user is logged in', function() {
@@ -140,12 +123,7 @@ describe('Global server set up', function(){
 
   describe('Nav bar', function() {
     beforeEach(function() {
-      // startServer()
       return browser.visit('/');
-    });
-
-    afterEach(function(){
-      // stopServer()
     });
 
     describe('When user is not logged in', function() {
@@ -162,12 +140,7 @@ describe('Global server set up', function(){
 
   describe('View all properties', function() {
     beforeEach(function() {
-      // startServer()
       return browser.visit('/properties');
-    });
-
-    afterEach(function(){
-      // stopServer()
     });
 
     it('expect to have title of properties page', function() {
