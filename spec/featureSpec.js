@@ -119,7 +119,12 @@ describe('Nav bar', function() {
       browser.assert.link('requestsNav a', 'Request', '/requests')
       browser.assert.link('signOutNav a', 'Sign out', '/logout')
     });
+
+    it("will show a button to list a new space", function() {
+      browser.assert.attribute('newSpace a', 'href', '/add_property');
+    });
   });
+
 
   describe('When user is not logged in', function() {
     it('will show spaces and log in', function() {
