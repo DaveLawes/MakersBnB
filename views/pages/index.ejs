@@ -2,7 +2,7 @@
 <% include ../partials/nav.ejs %>
 
   <% if (msg) { %>
-   Email already taken
+   <p id="emailerror">Email already taken</p>
   <% } %>
   <div id="welcomeWrapper">
     <h1 id="welcome">MakersBnB</h1>
@@ -19,7 +19,7 @@
           <label for="password">Password:</label>
           <input id="password" type="password" name="password" required>
         </div>
-        <button id="submit" type="submit" name="Submit">Submit</button> 
+        <button id="submit" type="submit" name="Submit">Submit</button>
       </form>
     </div>
 

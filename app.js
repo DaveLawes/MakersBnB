@@ -17,12 +17,12 @@ const Property = require(path.join(__dirname, 'server/models/property'))(sequeli
 NOTE: THIS RESETS THE TEST DATABASE'S TABLES TO EMPTY. THEY WILL BE FILLED WITH TEST DATA AFTERWARDS. THEY SHOULD BE CLEARED AS PART OF THE TEST CYCLE, NOT HERE!
 AN ERROR WILL THROW IF THE TABLES DON'T EXIST (THEY CAN BE CRETED USING .SYNC BUT WHEN THE TEST SUITE IS RUN THE FIRST TIME WITH THIS, IT CAN CAUSE FALSE ERRORS AS ITS ASYNC EVALUATED.... SO JUST RUN THE TESTS AGAIN )
 */
-if (process.env.npm_lifecycle_event === 'test') {
-  console.log('clearing test tables.....');
-  User.truncate()
-  Property.truncate()
-  console.log(".....test tables emptied")
-}
+// if (process.env.npm_lifecycle_event === 'test') {
+//   console.log('clearing test tables.....');
+//   User.truncate()
+//   Property.truncate()
+//   console.log(".....test tables emptied")
+// }
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -147,6 +147,8 @@ if (process.env.npm_lifecycle_event !== 'test') {
     console.log('Server started!');
   });
 }
+
+
 
 // THIS NEEDS TO BE AT THE END, NOT THE START!
 module.exports = app
