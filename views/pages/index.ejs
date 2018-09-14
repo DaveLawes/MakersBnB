@@ -1,6 +1,9 @@
 <% include ../partials/header.ejs %>
 <% include ../partials/nav.ejs %>
-  
+
+  <% if (msg) { %>
+   Email already taken
+  <% } %>
   <div id="welcomeWrapper">
     <h1 id="welcome">MakersBnB</h1>
 
@@ -10,11 +13,11 @@
       <form action="/register" method="post">
         <div id="innerForm">
           <label for="name">Name:</label>
-          <input id="name" type="text" name="name">
+          <input id="name" type="text" name="name" required>
           <label for="email">Email:</label>
-          <input id="email" type="email" name="email">
+          <input id="email" type="email" name="email" required>
           <label for="password">Password:</label>
-          <input id="password" type="password" name="password">
+          <input id="password" type="password" name="password" required>
         </div>
         <button id="submit" type="submit" name="Submit">Submit</button> 
       </form>
