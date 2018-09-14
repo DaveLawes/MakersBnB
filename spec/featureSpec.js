@@ -51,7 +51,7 @@ describe('User visits homepage', function() {
     });
 
     it('should see welcome page', function() {
-      browser.assert.text('.sub-title', 'All Properties');
+      browser.assert.text('.sub-title-prop', 'All Properties');
     });
 
     it('displays error message if email is already is database', function() {
@@ -145,6 +145,6 @@ describe('View all properties', function() {
   });
 
   it('expect to have title of properties page', function() {
-    browser.assert.text('.sub-title', 'All Properties');
+    browser.assert.text('.sub-title-prop', 'All Properties');
   });
 });
