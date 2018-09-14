@@ -58,7 +58,7 @@ describe('Global server set up', function(){
           browser.assert.link('#signOutNav', 'Sign out', '/logout');
         });
         it("display user's name", function() {
-          browser.assert.text('#welcomeMessage', 'Welcome, mathilde1');
+          browser.assert.text('#welcomeMessage', 'Welcome, mathilde');
         });
       })
 
