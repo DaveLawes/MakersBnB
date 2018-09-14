@@ -1,24 +1,48 @@
+/*
+ GENERAL NOTE: IN THE TEST SCRIPT (/MakersBnB/package.json LINE 8) JASMINE IS BEING USED TO RUN THIS FILE. THEN IT REQUIRES ZOMBIE, WHICH ACTUALLY EXECUTES THE TESTS. HOWEVER IF TESTS FAIL, IT REFERNECES JASMINE, THIS IS A RED HERRING AS THEY ARE STILL THE ZOMBIE TESTS THAT ARE FAILING - ZOMBIE IS JUST RUNNING ON JASMINE, AS WE'VE ORIGINALLY ASKED JASMINE TO DO THE TESTING.
+*/
+
 const Browser = require('zombie');
-const Helper = require('./helpers/web_helpers')
+// const Helper = require('./helpers/web_helpers')
 
-// We're going to make requests to http://example.com/signup
-// Which will be routed to our test server localhost:3000
+/*
+BEFORE RUNNING TESTS, WE WANT TO MAKE SURE THE APP IS UP AND RUNNING ON LOCALHOST - OTHERWISE ZOMBIE CAN'T 'SEE' WHAT'S GOING ON.
+THE PORT USED IS SET TO ONE THAT IS NOT THE SAME AS THE ONE THE MAIN APP RUNS ON, SO THAT THE TESTS AND APP CAN BE RUN SIMULTANEOUSLY.
+*/
 
-Browser.localhost('example.com', 3000);
-const app = require('../app')
+Browser.localhost('example.com', 4000);
+
+var app = require('../app');
+
+/*
+THE LINES RELATING TO SERVER START / STOP CAN BE REFACTORED OUT TO A SEPARATE FILE, E.G. web_helpers (WHICH CAN THEN BE UNCOMMENTED OUT AT THE TOP!)
+WHEN THE FUNCTIONALITY TO WIPE THE TEST DATABASES BEFORE / AFTER EACH IS ADDED, IT SHOULD BE EXTRACTED SIMILARLY
+*/
+
+var server;
+var startServer = () => { server = app.listen(4000) }
+var stopServer = () => { server.close() }
+/*
+THE TWO (startServer / stopServer) HAVE TO BE CALLED IN beforeEach AND afterEach FUNCTIONS - AFAIK THEY CAN'T JUST BE SET ONCE AT START OF TEST SUITE :(
+*/
 
 const browser = new Browser();
 
 describe('User visits homepage', function() {
   beforeEach(function() {
+    startServer()
     return browser.visit('/');
+  })
+
+  afterEach(function(){
+    stopServer()
   });
 
   describe('Register', function() {
     beforeEach(function() {
-      browser.fill('email',    'mathilde@email.com');
+      browser.fill('email',   'mathilde@email.com');
       browser.fill('name',    'mathilde');
-      browser.fill('password', '1234');
+      browser.fill('password','1234');
       return browser.pressButton('Submit');
     });
 
@@ -27,33 +51,34 @@ describe('User visits homepage', function() {
     });
 
     it('should see welcome page', function() {
-      browser.assert.text('h3', 'All Properties')
+      browser.assert.text('.sub-title', 'All Properties');
     });
 
     it('displays error message if email is already is database', function() {
       return browser.visit('/');
       browser.fill('email',    'mathilde@email.com');
-      browser.fill('name',    'mathilde');
+      browser.fill('name',     'mathilde');
       browser.fill('password', '1234');
       return browser.pressButton('Submit');
       browser.asset.text('Email already taken');
     });
+  });
 
-    describe('Clicks sign out button', function() {
-      beforeEach(function() {
-        return browser.clickLink('Sign out');
-      });
+  describe('Clicks sign out button', function() {
+    beforeEach(function() {
+      return browser.clickLink('Sign out');
+    });
 
-      it('is back on the register page', function() {
-        browser.assert.element('form input[name=name]');
-      });
+    it('is back on the register page', function() {
+      browser.assert.element('form input[name=name]');
     });
   });
 
   describe('User clicks log in', function() {
     beforeEach(function() {
       return browser.clickLink('Login')
-    })
+    });
+
     it('Has clicked Log in', function() {
       browser.assert.success();
     })
@@ -64,36 +89,22 @@ describe('User visits homepage', function() {
         browser.fill('password', '1234')
         return browser.pressButton('Submit')
       })
-      it('Should show the users name on the page', function() {
-        // AWAITING USER OBJECTS AND DATABASE
-
-        browser.assert.text('h3', 'mathilde')
-        browser.assert.text('h3', 'mathilde@email.com')
-      });
-
-      describe('Go to property page', function() {
-        beforeEach(function() {
-          return browser.visit('/properties');
-        });
-
-        describe('User clicks list a space', function() {
-          beforeEach(function() {
-            return browser.pressButton('List a space');
-          });
-          it('User can list a new space', function() {
-            browser.assert.text('h1', 'Welcome to MakersBNB');
-            browser.assert.text('h2', 'title');
-          })
-        })
-      });
-
     });
   });
 });
 
+/*
+THIS SUITE OF TESTS NEEDS FIXING!
+PLEASE NOTE ADDITION OF startServer AND stopServer
+*/
 describe('Nav bar', function() {
   beforeEach(function() {
+    startServer()
     return browser.visit('/');
+  });
+
+  afterEach(function(){
+    stopServer()
   });
 
   describe('When user is logged in', function() {
@@ -104,26 +115,31 @@ describe('Nav bar', function() {
       return browser.pressButton('Submit');
     });
     it('will show spaces, request and sign out', function() {
-      browser.asset.link('spacesNav a', 'Spaces', '/properties')
-      browser.asset.link('requestsNav a', 'Request', '/requests')
-      browser.asset.link('signOutNav a', 'Sign out', '/logout')
+      browser.assert.link('spacesNav a', 'Spaces', '/properties')
+      browser.assert.link('requestsNav a', 'Request', '/requests')
+      browser.assert.link('signOutNav a', 'Sign out', '/logout')
     });
   });
 
   describe('When user is not logged in', function() {
     it('will show spaces and log in', function() {
-      browser.asset.link('spacesNav a', 'Spaces', '/properties')
-      browser.asset.link('loginNav a', 'Sign in', '/login')
+      browser.assert.link('spacesNav a', 'Spaces', '/properties')
+      browser.assert.link('loginNav a', 'Sign in', '/login')
     });
   })
 });
 
 describe('View all properties', function() {
   beforeEach(function() {
+    startServer()
     return browser.visit('/properties');
   });
 
-  it('expect to show all properties', function() {
-    browser.assert.text('h3', 'All Properties');
+  afterEach(function(){
+    stopServer()
+  });
+
+  it('expect to have title of properties page', function() {
+    browser.assert.text('.sub-title', 'All Properties');
   });
 });

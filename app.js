@@ -7,21 +7,25 @@ const app = express();
 
 require('dotenv').config();
 
-if (process.env.npm_lifecycle_event === 'test') {
-  target_db = process.env.ENV_TEST_DATABASE;
-  console.log("using test db");
-} else {
-  target_db = process.env.ENV_DATABASE;
-  console.log("using dev db");
-}
-
 const Sequelize = require('sequelize');
-const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))(Sequelize);
+const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))(Sequelize)
 
 const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize);
 const Property = require(path.join(__dirname, 'server/models/property'))(sequelize, Sequelize);
 
-module.exports = app;
+/*
+THIS CHECKS IF THE TABLES EXIST IN THE DATABASE OF THE CURRENT RUNNING ENVIROMENT (TEST OR NON-TEST).
+IF THE TABLES DON'T EXIST, IT WILL CREATE THEM FROM THE RELEVANT MODELS.
+THIS SHOULD BE REFACTORED INTO A CONDITIONAL, SO THAT IT ONLY HAPPENS WHEN RUNNING IN TEST MODE.
+NOTE: IN TEST MODE: IF THE TABLES DON'T EXIST, THE FIRST TEST MAY FAIL AND THE REST MAY WORK. AND THEN WHEN YOU RE-RUN THE TESTS, ALL TESTS PASS. THIS IS BECAUSE THE .SYNC HASN'T FINISHED CREATING THE MISSING TABLES BEFORE THE FIRST TEST HAS EXECUTED AND RETURNED IT'S RESULT.
+TO RECREATE: DELETE TABLES FROM TEST DATABASE. RUN TEST SUITE. LOOK FOR THE CONSOLE LOG MESSAGES SHOWING WHEN THE TABLES WERE CREATED (THEY'LL BE RIGHT BEFORE THE TESTS START PASSING!)
+*/
+Property.sync().then((responses) => {
+  console.log('**** properties table set up ****');
+})
+User.sync().then((responses) => {
+  console.log('**** users table set up ****');
+})
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -130,6 +134,16 @@ app.get("/logout", function (req, res) {
   res.redirect("/");
 });
 
-app.listen(3000, function () {
-  console.log('Server started!');
-});
+/* NOTE: 'npm_lifecycle_event' IS AN ENVIRONMENT VARIABLE SET BY npm WHEN IT IS RUN:
+WHEN npm test IS RUN, THIS VAR IS SET TO 'TEST'
+THIS BIT BELOW SETS THE LOCALHOST CONNECTION AT PORT 3000 WHENEVER IT'S RUNNING IN ANY MODE OTHER THAN TEST
+*/
+var server;
+if (process.env.npm_lifecycle_event !== 'test') {
+  server = app.listen(3000, function () {
+    console.log('Server started!');
+  });
+}
+
+// THIS NEEDS TO BE AT THE END, NOT THE START!
+module.exports = app
