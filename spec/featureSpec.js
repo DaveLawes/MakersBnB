@@ -52,9 +52,8 @@ describe('Global server set up', function(){
         browser.assert.text('.sub-title-prop', 'All Properties');
       });
       describe('Nav bar when logged in', function() {
-        it('will show spaces, request and sign out', function() {
+        it('will show spaces and sign out', function() {
           browser.assert.link('#spacesNav', 'Spaces', '/properties');
-          browser.assert.link('#requestsNav', 'Request', '/requests');
           browser.assert.link('#signOutNav', 'Sign out', '/logout');
         });
         it("display user's name", function() {
