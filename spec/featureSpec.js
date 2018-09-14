@@ -155,11 +155,33 @@ describe('Global server set up', function(){
       beforeEach(function() {
         return browser.visit('/properties');
       });
-  
-      it('expect to have title of properties page', function() {
-        browser.assert.text('.sub-title-prop', 'All Properties');
-      });
+
+    it('expect to have title of properties page', function() {
+      browser.assert.text('.sub-title-prop', 'All Properties');
     });
   });
 
+  describe('Add a property', function() {
+    beforeEach(function() {
+      return browser.visit('/add_property')
+    });
+
+    describe('user enters details about property', function() {
+      beforeEach(function() {
+        browser.fill('title', 'Domaine de la Pinelais');
+        browser.fill('description', 'Lovely castle on French seaside');
+        browser.fill('pricepernight', '3000');
+        browser.fill('picurl', 'https://cdn5.1001salles.com/images/12427/g/1448573683_3119_679818177.jpg');
+        return browser.pressButton('Submit');
+      });
+
+      it('allows a user to list a new property', function() {
+        browser.assert.text('.cardTitle', 'Domaine de la Pinelais');
+        browser.assert.text('.cardDesc', 'Lovely castle on French seaside');
+        browser.assert.text('.price', '£3000 per night');
+      });
+    });
+
+  });
+});
 });
