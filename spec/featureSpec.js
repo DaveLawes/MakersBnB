@@ -27,8 +27,7 @@ THE TWO (startServer / stopServer) HAVE TO BE CALLED IN beforeEach AND afterEach
 */
 
 const browser = new Browser();
-
-describe('User visits homepage', function() {
+describe('Global server set up', function(){
   beforeEach(function() {
     startServer()
     return browser.visit('/');
@@ -38,157 +37,154 @@ describe('User visits homepage', function() {
     stopServer()
   });
 
-  describe('Register', function() {
+
+  describe('User visits homepage', function() {
     beforeEach(function() {
-      browser.fill('email',   'mathilde@email.com');
-      browser.fill('name',    'mathilde');
-      browser.fill('password','1234');
-      return browser.pressButton('Submit');
-    });
-
-    it('should be successful', function() {
-      browser.assert.success();
-    });
-
-    it('should see welcome page', function() {
-      browser.assert.text('.sub-title-prop', 'All Properties');
-    });
-
-    it('displays error message if email is already is database', function() {
       return browser.visit('/');
-      browser.fill('email',    'mathilde@email.com');
-      browser.fill('name',     'mathilde');
-      browser.fill('password', '1234');
-      return browser.pressButton('Submit');
-      browser.asset.text('Email already taken');
-    });
-  });
-
-  describe('Clicks sign out button', function() {
-    beforeEach(function() {
-      return browser.clickLink('Sign out');
-    });
-
-    it('is back on the register page', function() {
-      browser.assert.element('form input[name=name]');
-    });
-  });
-
-  describe('User clicks log in', function() {
-    beforeEach(function() {
-      return browser.clickLink('Login')
-    });
-
-    it('Has clicked Log in', function() {
-      browser.assert.success();
     })
 
-    describe('User enters details and clicks submit', function() {
+    describe('Register', function() {
       beforeEach(function() {
-        browser.fill('email', 'mathilde@email.com')
-        browser.fill('password', '1234')
-        return browser.pressButton('Submit')
+        browser.fill('email',   'mathilde@email.com');
+        browser.fill('name',    'mathilde');
+        browser.fill('password','1234');
+        return browser.pressButton('Submit');
+      });
+
+      it('should be successful', function() {
+        browser.assert.success();
+      });
+
+      it('should see welcome page', function() {
+        browser.assert.text('.sub-title-prop', 'All Properties');
+      });
+
+      it('displays error message if email is already is database', function() {
+        return browser.visit('/');
+        browser.fill('email',    'mathilde@email.com');
+        browser.fill('name',     'mathilde');
+        browser.fill('password', '1234');
+        return browser.pressButton('Submit');
+        browser.asset.text('Email already taken');
+      });
+    });
+
+    describe('Clicks sign out button', function() {
+      beforeEach(function() {
+        return browser.clickLink('Sign out');
+      });
+
+      it('is back on the register page', function() {
+        browser.assert.element('form input[name=name]');
+      });
+    });
+
+    describe('User clicks log in', function() {
+      beforeEach(function() {
+        return browser.clickLink('Login')
+      });
+
+      it('Has clicked Log in', function() {
+        browser.assert.success();
       })
+
+      describe('User enters details and clicks submit', function() {
+        beforeEach(function() {
+          browser.fill('email', 'mathilde@email.com')
+          browser.fill('password', '1234')
+          return browser.pressButton('Submit')
+        })
+      });
     });
   });
-});
 
-/*
-THIS SUITE OF TESTS NEEDS FIXING!
-PLEASE NOTE ADDITION OF startServer AND stopServer
-*/
-describe('Nav bar', function() {
-  beforeEach(function() {
-    startServer()
-    return browser.visit('/');
-  });
-
-  afterEach(function(){
-    stopServer()
-  });
-
-  describe('When user is logged in', function() {
+  /*
+  THIS SUITE OF TESTS NEEDS FIXING!
+  PLEASE NOTE ADDITION OF startServer AND stopServer
+  */
+  describe('Nav bar', function() {
     beforeEach(function() {
-      browser.fill('email', 'mathilde1@email.com');
-      browser.fill('name', 'mathilde1');
-      browser.fill('password','12345');
-      return browser.pressButton('Submit');
-    });
-    it('will show spaces, request and sign out', function() {
-      browser.assert.link('#spacesNav', 'Spaces', '/properties');
-      browser.assert.link('#requestsNav', 'Request', '/requests');
-      browser.assert.link('#signOutNav', 'Sign out', '/logout');
+      // startServer()
+      return browser.visit('/');
     });
 
-    it("will show a button to list a new space", function() {
-      browser.assert.attribute('#newSpace', 'href', '/add_property');
+    afterEach(function(){
+      // stopServer()
     });
+
+    describe('When user is logged in', function() {
+      beforeEach(function() {
+        browser.fill('email', 'mathilde1@email.com');
+        browser.fill('name', 'mathilde1');
+        browser.fill('password','12345');
+        return browser.pressButton('Submit');
+      });
+      it('will show spaces, request and sign out', function() {
+        browser.assert.link('#spacesNav', 'Spaces', '/properties');
+        browser.assert.link('#requestsNav', 'Request', '/requests');
+        browser.assert.link('#signOutNav', 'Sign out', '/logout');
+      });
+
+      it("will show a button to list a new space", function() {
+        browser.assert.attribute('#newSpace', 'href', '/add_property');
+      });
+    });
+
   });
 
-});
 
-
-describe('Nav bar', function() {
-  beforeEach(function() {
-    startServer()
-    return browser.visit('/');
-  });
-
-  afterEach(function(){
-    stopServer()
-  });
-
-  describe('When user is not logged in', function() {
+  describe('Nav bar', function() {
     beforeEach(function() {
-      return browser.clickLink('Sign out');
+      // startServer()
+      return browser.visit('/');
     });
 
-    it('will show spaces and log in', function() {
-      browser.assert.link('#spacesNav', 'Spaces', '/properties');
-      browser.assert.link('#loginNav', 'Login', '/login');
+    afterEach(function(){
+      // stopServer()
+    });
+
+    describe('When user is not logged in', function() {
+      beforeEach(function() {
+        return browser.clickLink('Sign out');
+      });
+
+      it('will show spaces and log in', function() {
+        browser.assert.link('#spacesNav', 'Spaces', '/properties');
+        browser.assert.link('#loginNav', 'Login', '/login');
+      });
     });
   });
-});
 
-describe('View all properties', function() {
-  beforeEach(function() {
-    startServer()
-    return browser.visit('/properties');
-  });
-
-  afterEach(function(){
-    stopServer()
-  });
-
-  it('expect to have title of properties page', function() {
-    browser.assert.text('.sub-title-prop', 'All Properties');
-  });
-});
-
-describe('Add a property', function() {
-  beforeEach(function() {
-    startServer();
-    return browser.visit('/add_property')
-  });
-
-  afterEach(function(){
-    stopServer()
-  });
-
-  describe('user enters details about property', function() {
+  describe('View all properties', function() {
     beforeEach(function() {
-      browser.fill('title', 'Domaine de la Pinelais');
-      browser.fill('description', 'Lovely castle on French seaside');
-      browser.fill('pricepernight', '3000');
-      browser.fill('picurl', 'https://cdn5.1001salles.com/images/12427/g/1448573683_3119_679818177.jpg');
-      return browser.pressButton('Submit');
+      return browser.visit('/properties');
     });
 
-    it('allows a user to list a new property', function() {
-      browser.assert.text('.cardTitle', 'Domaine de la Pinelais');
-      browser.assert.text('.cardDesc', 'Lovely castle on French seaside');
-      browser.assert.text('.price', '£3000 per night');
+    it('expect to have title of properties page', function() {
+      browser.assert.text('.sub-title-prop', 'All Properties');
     });
   });
 
+  describe('Add a property', function() {
+    beforeEach(function() {
+      return browser.visit('/add_property')
+    });
+
+    describe('user enters details about property', function() {
+      beforeEach(function() {
+        browser.fill('title', 'Domaine de la Pinelais');
+        browser.fill('description', 'Lovely castle on French seaside');
+        browser.fill('pricepernight', '3000');
+        browser.fill('picurl', 'https://cdn5.1001salles.com/images/12427/g/1448573683_3119_679818177.jpg');
+        return browser.pressButton('Submit');
+      });
+
+      it('allows a user to list a new property', function() {
+        browser.assert.text('.cardTitle', 'Domaine de la Pinelais');
+        browser.assert.text('.cardDesc', 'Lovely castle on French seaside');
+        browser.assert.text('.price', '£3000 per night');
+      });
+    });
+
+  });
 });
