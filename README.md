@@ -14,8 +14,11 @@ Code with :heart: by :
 Users can list spaces on the web application that are visible to all.
 
 ## Technologies
-This project was built with Javascript and the testing framework [Jasmine](https://jasmine.github.io/) paired with [Zombie](http://zombie.js.org/) to test the user experience of this web-based application.  
-We also decided to use the MVC [Express](https://expressjs.com/) as it seemed easy to set up for a first experience.
+This project was built with Javascript with the the MVC [Express](https://expressjs.com/) as it seemed easy to set up for a first experience.  
+Our testing framework is [Jasmine](https://jasmine.github.io/) paired with:  
+- [Zombie](http://zombie.js.org/) to test the user experience of this web-based application  
+- [Istanbul](https://istanbul.js.org/) to get the test coverage.  
+[ESLint](https://eslint.org/) has been set up in this project (ES6 by default) to get a better knowledge of Javascript style guidelines.
 
 ## How to install
 
@@ -28,6 +31,11 @@ npm install
 node app.js
 ```
 Then in your favorite browser type `localhost:3000/` to access the homepage.
+
+## How to test
+In your terminal:  
+- type `npm test` to run Jasmine/Zombie tests and get the test coverage  
+- type `./node_modules/.bin/eslint yourfile.js` to run ESLint.
 
 ## User Stories
 
@@ -59,9 +67,9 @@ Only logged in users can add a property listing
 
 ### Headline specifications
 
-- Any signed-up user can list a new space.
-- Users can list multiple spaces.
-- Users should be able to name their space, provide a short description of the space, and a price per night.
+- Any signed-up user can list a new space. :white_check_mark:
+- Users can list multiple spaces. :white_check_mark:
+- Users should be able to name their space, provide a short description of the space, and a price per night. :white_check_mark:
 - Users should be able to offer a range of dates where their space is available.
 - Any signed-up user can request to hire any space for one night, and this should be approved by the user that owns that space.
 - Nights for which a space has already been booked should not be available for users to book that space.

@@ -65,7 +65,10 @@ app.post("/register", function (req, res) {
       res.redirect("/properties");
     })
     .catch(Sequelize.ValidationError, function (err) {
-      res.render("pages/index", {msg: true});
+      res.render("pages/index", {
+        msg: true,
+        name: false
+      });
     });
 });
 
@@ -131,7 +134,10 @@ app.post("/add_property", function (req, res) {
     res.redirect("properties");
   })
   .catch(Sequelize.ValidationError, function (err) {
-    res.render("pages/add_property", {msg: true});
+    res.render("pages/add_property", {
+      msg: true,
+      name: name
+    });
   });
 })
 

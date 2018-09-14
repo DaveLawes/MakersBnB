@@ -30,7 +30,7 @@ const browser = new Browser();
 describe('Global server set up', function(){
   beforeEach(function() {
     startServer()
-  })
+  });
 
   afterEach(function(){
     stopServer()
@@ -39,8 +39,9 @@ describe('Global server set up', function(){
   describe('User visits homepage', function() {
     beforeEach(function() {
       return browser.visit('/');
-    })
-    // USER LOGGED IN TESTS
+    });
+
+    //USER LOGGED IN TESTS
     describe('Register', function() {
       beforeEach(function() {
         browser.fill('email',   'mathilde@email.com');

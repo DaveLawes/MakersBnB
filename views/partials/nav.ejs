@@ -1,6 +1,10 @@
 <div class="mainNav">
-  LOGO
+	
+	<h2 id="logo">MakersBnB</h2>
+	
+
 	<% if (name) { %> 
+		<p id="welcomeMessage">Welcome, <%= name %> </p>
 	  <a id="signOutNav" href="/logout">Sign out</a>
 	  <a id="requestsNav" href="/requests">Request</a>
 	<% } else { %>
