@@ -1,13 +1,7 @@
 /*
  GENERAL NOTE: IN THE TEST SCRIPT (/MakersBnB/package.json LINE 8) JASMINE IS BEING USED TO RUN THIS FILE. THEN IT REQUIRES ZOMBIE, WHICH ACTUALLY EXECUTES THE TESTS. HOWEVER IF TESTS FAIL, IT REFERNECES JASMINE, THIS IS A RED HERRING AS THEY ARE STILL THE ZOMBIE TESTS THAT ARE FAILING - ZOMBIE IS JUST RUNNING ON JASMINE, AS WE'VE ORIGINALLY ASKED JASMINE TO DO THE TESTING.
 */
-
 const Browser = require('zombie');
-
-/*
-BEFORE RUNNING TESTS, WE WANT TO MAKE SURE THE APP IS UP AND RUNNING ON LOCALHOST - OTHERWISE ZOMBIE CAN'T 'SEE' WHAT'S GOING ON.
-THE PORT USED IS SET TO ONE THAT IS NOT THE SAME AS THE ONE THE MAIN APP RUNS ON, SO THAT THE TESTS AND APP CAN BE RUN SIMULTANEOUSLY.
-*/
 
 Browser.localhost('example.com', 4000);
 
@@ -17,10 +11,8 @@ var server;
 var startServer = () => { server = app.listen(4000) };
 var stopServer = () => { server.close() };
 
-// var User;
-// var userTruncate = () => { User.truncate }
-
 const browser = new Browser();
+
 describe('Global server set up', function(){
   beforeEach(function() {
     startServer()
