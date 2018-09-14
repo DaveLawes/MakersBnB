@@ -120,13 +120,16 @@ describe('Nav bar', function() {
       browser.assert.link('#signOutNav', 'Sign out', '/logout');
     });
 
+    it("display user's name", function() {
+      browser.assert.text('#welcomeMessage', 'Welcome, mathilde1');
+    });
+
     it("will show a button to list a new space", function() {
       browser.assert.attribute('#newSpace', 'href', '/add_property');
     });
   });
 
 });
-
 
 describe('Nav bar', function() {
   beforeEach(function() {
