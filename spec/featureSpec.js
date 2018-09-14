@@ -30,7 +30,6 @@ const browser = new Browser();
 describe('Global server set up', function(){
   beforeEach(function() {
     startServer()
-    return browser.visit('/');
   })
 
   afterEach(function(){
