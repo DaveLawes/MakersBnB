@@ -27,7 +27,16 @@ describe('User visits homepage', function() {
     });
 
     it('should see welcome page', function() {
-      browser.assert.text('h3', 'All Properties');
+      browser.assert.text('h3', 'All Properties')
+    });
+
+    it('displays error message if email is already is database', function() {
+      return browser.visit('/');
+      browser.fill('email',    'mathilde@email.com');
+      browser.fill('name',    'mathilde');
+      browser.fill('password', '1234');
+      return browser.pressButton('Submit');
+      browser.asset.text('Email already taken');
     });
 
     describe('Clicks sign out button', function() {

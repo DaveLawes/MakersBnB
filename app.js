@@ -4,35 +4,21 @@ const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const path = require('path');
 const app = express();
+require('dotenv').config();
+
+if (process.env.npm_lifecycle_event === 'test') {
+  target_db = process.env.ENV_TEST_DATABASE
+  console.log("using test db")
+} else {
+  target_db = process.env.ENV_DATABASE
+  console.log("using dev db")
+};
+
 const Sequelize = require('sequelize');
 const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))(Sequelize)
 
 const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize)
 const Property = require(path.join(__dirname, 'server/models/property'))(sequelize, Sequelize)
-
-
-//BELOW CODE WILL ADD TO DATABASE
-// Property.sync({force: false}).then(() => {
-  /*
-  Table created if doesn't already exist.
-  Maybe we just need User.create below as our tables do exist.
-  force: true above will delete the table and create a new one.
-  */
-//   return Property.create({
-//     title: 'Shack by the sea',
-//     description: 'Super crappy',
-//     pricePerNight: 20,
-//     photo: ''
-//   });
-// });
-
-// Code below creates a user too, but only returns a promise.
-
-// user1 = User.create({
-//   name: 'Dave',
-//   email: 'dave@email.com',
-//   password: '1234567891011'
-// });
 
 module.exports = app;
 
@@ -50,22 +36,46 @@ app.use(cookieSession({
 app.get("/", function (req, res) {
   var name = req.session.name;
 
-  res.render("pages/index");
+  res.render("pages/index", {msg:false});
 });
 
 app.post("/register", function (req, res) {
-  req.session.name = req.body.name;
-  req.session.email = req.body.email;
-  res.redirect("/properties");
+    User.create({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password
+    })
+
+    .then(function (result) {
+      req.session.name = result.dataValues.name;
+      req.session.email = result.dataValues.email;
+      res.redirect("/properties");
+    })
+    .catch(Sequelize.ValidationError, function (err) {
+      res.render("pages/index", { msg:true});
+    });
 });
 
 app.get("/login", function (req, res) {
-  res.render("pages/login");
+  res.render("pages/login", {msg:false});
 });
 
 app.post("/login", function (req, res) {
-  req.session.email = req.body.email;
-  res.redirect("/properties");
+  User.findAll({
+    where: {
+      email: req.body.email,
+      password: req.body.password
+    }
+  })
+  .then(function (result) {
+    console.log(result[0].dataValues);
+    req.session.name = result[0].dataValues.name;
+    req.session.email = result[0].dataValues.email;
+    res.redirect("/properties");
+  })
+  .catch(function (err) {
+    res.render("pages/login", {msg:true});
+  });
 });
 
 app.get("/properties", function (req, res) {
@@ -75,7 +85,7 @@ app.get("/properties", function (req, res) {
       properties: result
     });
   });
-  
+
 });
 
 app.get("/logout", function (req, res) {
