@@ -120,7 +120,6 @@ describe('Global server set up', function(){
 
   });
 
-
   describe('Nav bar', function() {
     beforeEach(function() {
       return browser.visit('/');
