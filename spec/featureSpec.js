@@ -51,7 +51,7 @@ describe('User visits homepage', function() {
     });
 
     it('should see welcome page', function() {
-      browser.assert.text('.sub-title', 'All Properties');
+      browser.assert.text('.sub-title-prop', 'All Properties');
     });
 
     it('displays error message if email is already is database', function() {
@@ -115,23 +115,39 @@ describe('Nav bar', function() {
       return browser.pressButton('Submit');
     });
     it('will show spaces, request and sign out', function() {
-      browser.assert.link('#spacesNav', 'Spaces', '/properties')
-      browser.assert.link('#requestsNav', 'Request', '/requests')
-      browser.assert.link('#signOutNav', 'Sign out', '/logout')
+      browser.assert.link('#spacesNav', 'Spaces', '/properties');
+      browser.assert.link('#requestsNav', 'Request', '/requests');
+      browser.assert.link('#signOutNav', 'Sign out', '/logout');
     });
 
     it("will show a button to list a new space", function() {
-      browser.assert.attribute('newSpace a', 'href', '/add_property');
+      browser.assert.attribute('#newSpace', 'href', '/add_property');
     });
   });
 
+});
+
+
+describe('Nav bar', function() {
+  beforeEach(function() {
+    startServer()
+    return browser.visit('/');
+  });
+
+  afterEach(function(){
+    stopServer()
+  });
 
   describe('When user is not logged in', function() {
-    it('will show spaces and log in', function() {
-      browser.assert.link('#spacesNav', 'Spaces', '/properties')
-      browser.assert.link('#loginNav', 'Sign in', '/login')
+    beforeEach(function() {
+      return browser.clickLink('Sign out');
     });
-  })
+
+    it('will show spaces and log in', function() {
+      browser.assert.link('#spacesNav', 'Spaces', '/properties');
+      browser.assert.link('#loginNav', 'Login', '/login');
+    });
+  });
 });
 
 describe('View all properties', function() {
@@ -145,6 +161,6 @@ describe('View all properties', function() {
   });
 
   it('expect to have title of properties page', function() {
-    browser.assert.text('.sub-title', 'All Properties');
+    browser.assert.text('.sub-title-prop', 'All Properties');
   });
 });
