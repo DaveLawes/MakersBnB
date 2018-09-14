@@ -21,12 +21,16 @@ NOTE: IN TEST MODE: IF THE TABLES DON'T EXIST, THE FIRST TEST MAY FAIL AND THE R
 TO RECREATE: DELETE TABLES FROM TEST DATABASE. RUN TEST SUITE. LOOK FOR THE CONSOLE LOG MESSAGES SHOWING WHEN THE TABLES WERE CREATED (THEY'LL BE RIGHT BEFORE THE TESTS START PASSING!)
 */
 if (process.env.npm_lifecycle_event === 'test') {
-  Property.sync().then((responses) => {
-    console.log('**** properties table set up ****');
-  })
-  User.sync().then((responses) => {
-    console.log('**** users table set up ****');
-  })
+  // Property.sync().then((responses) => {
+  //   console.log('**** properties table set up ****');
+  // })
+  // User.sync().then((responses) => {
+  //   console.log('**** users table set up ****');
+  // })
+  console.log('tables reached');
+  User.truncate()
+  Property.truncate()
+  console.log("tables emptied")
 }
 
 app.set('view engine', 'ejs');
