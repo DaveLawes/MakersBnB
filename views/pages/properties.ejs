@@ -1,7 +1,13 @@
 <% include ../partials/header.ejs %>
 <% include ../partials/nav.ejs %>
 
-<h3 class="sub-title">All Properties</h3>
+<h3 class="sub-title-prop">All Properties</h3>
+
+<% if (name) { %> 
+  <div id="buttonContainer">
+    <button id="newSpaceButton"><a id="newSpace" href="/add_property">Add a new property</a></button>
+  </div>
+<% } %>
 
 <div id="propertyWrapper">
 

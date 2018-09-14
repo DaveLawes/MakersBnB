@@ -18,6 +18,26 @@ h1 {
   margin: 0 auto;
 }
 
+#newSpace {
+  text-decoration: none;
+  color: #ebe3e3;
+}
+
+#buttonContainer {
+  margin: 0 auto 4% auto;
+  width: 150px;
+}
+
+#newSpaceButton {
+  text-transform: uppercase;
+  width: 100%;
+  height: 30px;
+  border-radius: 8px; 
+  background-color: #8dc26f;
+  font-weight: bold;
+  padding: 0;
+}
+
 #propertyWrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -72,6 +92,14 @@ h1 {
   text-align: center;
   color: #2e2b2b;
   margin-bottom: 3%;
+}
+
+.sub-title-prop {
+  grid-column: 2 / 3;
+  text-align: center;
+  color: #2e2b2b;
+  margin-bottom: 1%;
+  font-size: 1.5em;
 }
 
 #signupWrapper {

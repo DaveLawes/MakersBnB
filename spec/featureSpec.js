@@ -104,11 +104,16 @@ describe('Nav bar', function() {
       return browser.pressButton('Submit');
     });
     it('will show spaces, request and sign out', function() {
-      browser.asset.link('spacesNav a', 'Spaces', '/properties')
-      browser.asset.link('requestsNav a', 'Request', '/requests')
-      browser.asset.link('signOutNav a', 'Sign out', '/logout')
+      browser.assert.link('spacesNav a', 'Spaces', '/properties')
+      browser.assert.link('requestsNav a', 'Request', '/requests')
+      browser.assert.link('signOutNav a', 'Sign out', '/logout')
+    });
+
+    it("will show a button to list a new space", function() {
+      browser.assert.attribute('newSpace a', 'href', '/add_property');
     });
   });
+
 
   describe('When user is not logged in', function() {
     it('will show spaces and log in', function() {
