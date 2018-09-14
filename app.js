@@ -12,8 +12,8 @@ const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequ
 const Property = require(path.join(__dirname, 'server/models/property'))(sequelize, Sequelize)
 
 // Set up tables if needed - however if tables don't exist the rest of the program will carry on some tests will fail as they will have been run before the sync result is returned. You can see that the sync has actually worked, because when you run the tests again they don't fail... so the ables that were missing have been set up.
-// Probably only want to call these 2 lines in test mode though.
-// Recreate this: delete tables from the test database, then run npm test, then see some tests fail and the rest pass. Before the passing tests, the console.log statements should appear. Usually tables are built after the first test has run.
+// NOTE: Probably only want to call these 2 lines in test mode though, as unnecessary for prod mode....need to move to test route only
+// NOTE: Recreate this: delete tables from the test database, then run npm test, then see some tests fail and the rest pass. Before the passing tests, the console.log statements should appear. Usually tables are built after the first test has run.
 Property.sync().then((responses) => {
   console.log('**** properties table set up ****');
 })
@@ -103,6 +103,9 @@ app.get("/logout", function (req, res) {
   res.redirect("/");
 });
 
+
+// NOTE: npm_lifecycle_event is an environment variable set by npm when it's run. When you run 'npm test' the npm_lifecycle_event is set to 'test'.
+// The below bit is to make sure that when non-test mode is runnning, the app loads on localhost at port 3000 (can set to a diff port for tests, so that dev/prod and test mode can be run at the same time.)
 var server;
 if (process.env.npm_lifecycle_event !== 'test') {
   server = app.listen(3000, function () {

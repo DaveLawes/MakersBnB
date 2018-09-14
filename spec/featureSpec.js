@@ -2,7 +2,7 @@ const Browser = require('zombie');
 // const Helper = require('./helpers/web_helpers')
 
 Browser.localhost('example.com', 4000);
-// BEFORE RUNNING TESTS, MANUALLY BOOT UP TO LOCALHOST OTHERWISE EVERYTHING FAILS
+// BEFORE RUNNING TESTS, WE WANT TO MAKE SURE THE APP IS UP AND RUNNING ON LOCALHOST. PORT IS SPECIFIED SO THAT THE TESTS CAN RUN IN ONE PLACE AND NOT AFFECT THE 'REAL' PROGRAM RUNNING SIMULTANEOUSLY. 
 
 var app = require('../app');
 var server;
