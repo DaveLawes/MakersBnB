@@ -14,23 +14,14 @@ const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequ
 const Property = require(path.join(__dirname, 'server/models/property'))(sequelize, Sequelize);
 
 /*
-THIS CHECKS IF THE TABLES EXIST IN THE DATABASE OF THE CURRENT RUNNING ENVIROMENT (TEST OR NON-TEST).
-IF THE TABLES DON'T EXIST, IT WILL CREATE THEM FROM THE RELEVANT MODELS.
-THIS SHOULD BE REFACTORED INTO A CONDITIONAL, SO THAT IT ONLY HAPPENS WHEN RUNNING IN TEST MODE.
-NOTE: IN TEST MODE: IF THE TABLES DON'T EXIST, THE FIRST TEST MAY FAIL AND THE REST MAY WORK. AND THEN WHEN YOU RE-RUN THE TESTS, ALL TESTS PASS. THIS IS BECAUSE THE .SYNC HASN'T FINISHED CREATING THE MISSING TABLES BEFORE THE FIRST TEST HAS EXECUTED AND RETURNED IT'S RESULT.
-TO RECREATE: DELETE TABLES FROM TEST DATABASE. RUN TEST SUITE. LOOK FOR THE CONSOLE LOG MESSAGES SHOWING WHEN THE TABLES WERE CREATED (THEY'LL BE RIGHT BEFORE THE TESTS START PASSING!)
+NOTE: THIS RESETS THE TEST DATABASE'S TABLES TO EMPTY. THEY WILL BE FILLED WITH TEST DATA AFTERWARDS. THEY SHOULD BE CLEARED AS PART OF THE TEST CYCLE, NOT HERE!
+AN ERROR WILL THROW IF THE TABLES DON'T EXIST (THEY CAN BE CRETED USING .SYNC BUT WHEN THE TEST SUITE IS RUN THE FIRST TIME WITH THIS, IT CAN CAUSE FALSE ERRORS AS ITS ASYNC EVALUATED.... SO JUST RUN THE TESTS AGAIN )
 */
 if (process.env.npm_lifecycle_event === 'test') {
-  // Property.sync().then((responses) => {
-  //   console.log('**** properties table set up ****');
-  // })
-  // User.sync().then((responses) => {
-  //   console.log('**** users table set up ****');
-  // })
-  console.log('tables reached');
+  console.log('clearing test tables.....');
   User.truncate()
   Property.truncate()
-  console.log("tables emptied")
+  console.log(".....test tables emptied")
 }
 
 app.set('view engine', 'ejs');
@@ -159,3 +150,4 @@ if (process.env.npm_lifecycle_event !== 'test') {
 
 // THIS NEEDS TO BE AT THE END, NOT THE START!
 module.exports = app
+// module.exports = User
