@@ -1,11 +1,15 @@
 const Browser = require('zombie');
-const Helper = require('./helpers/web_helpers')
+// const Helper = require('./helpers/web_helpers')
 
-Browser.localhost('example.com', 3000);
+Browser.localhost('example.com', 4000);
 // BEFORE RUNNING TESTS, MANUALLY BOOT UP TO LOCALHOST OTHERWISE EVERYTHING FAILS
 
-// THIS LINE IS HAVING NO EFFECT:
-// const app = require('../app')
+var app = require('../app');
+var server;
+
+var startServer = () => { server = app.listen(4000) }
+var stopServer = () => { server.close() }
+// console.log(app)
 
 // process.env.NODE_ENV = 'test'
 
@@ -13,17 +17,19 @@ const browser = new Browser();
 
 describe('User visits homepage', function() {
   beforeEach(function() {
-    // process.env.NODE_ENV ='test'
-    browser.visit('/');
-    console.log(browser.html());
-    return browser.visit('/')
+    startServer()
+    return browser.visit('/');
+  })
+
+  afterEach(function(){
+    stopServer()
   });
 
   describe('Register', function() {
     beforeEach(function() {
-      browser.fill('email',    'mathilde@email.com');
+      browser.fill('email',   'mathilde@email.com');
       browser.fill('name',    'mathilde');
-      browser.fill('password', '1234');
+      browser.fill('password','1234');
       return browser.pressButton('Submit');
     });
 
@@ -92,7 +98,12 @@ THE TEST BELOW IS NOW NOT THE FUNCTIONALITY OF THE SITE. AFTER 'SUBMIT' BUTTON P
 
 describe('View all properties', function() {
   beforeEach(function() {
+    startServer()
     return browser.visit('/properties');
+  });
+
+  afterEach(function(){
+    stopServer()
   });
 
   it('expect to have title of properties page', function() {

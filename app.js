@@ -6,9 +6,25 @@ const path = require('path');
 const app = express();
 const Sequelize = require('sequelize');
 const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))(Sequelize)
+// const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))
 
 const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize)
 const Property = require(path.join(__dirname, 'server/models/property'))(sequelize, Sequelize)
+
+// Set up tables if needed - however if tables don't exist the rest of the program will carry on some tests will fail as they will have been run before the sync result is returned. You can see that the sync has actually worked, because when you run the tests again they don't fail... so the ables that were missing have been set up.
+// Probably only want to call these 2 lines in test mode though.
+// Recreate this: delete tables from the test database, then run npm test, then see some tests fail and the rest pass. Before the passing tests, the console.log statements should appear. Usually tables are built after the first test has run.
+Property.sync().then((responses) => {
+  console.log('**** properties table set up ****');
+})
+User.sync().then((responses) => {
+  console.log('**** users table set up ****');
+})
+
+// Promise.all([User.sync(), Property.sync()]).then(responses => {
+//   console.log("Tables set up:")
+//   console.log(responses)
+// })
 
 
 //BELOW CODE WILL ADD TO DATABASE
@@ -40,8 +56,6 @@ const Property = require(path.join(__dirname, 'server/models/property'))(sequeli
 //   email: 'dave@email.com',
 //   password: '1234567891011'
 // });
-
-module.exports = app;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -82,7 +96,6 @@ app.get("/properties", function (req, res) {
       properties: result
     });
   });
-
 });
 
 app.get("/logout", function (req, res) {
@@ -90,6 +103,11 @@ app.get("/logout", function (req, res) {
   res.redirect("/");
 });
 
-app.listen(3000, function () {
-  console.log('Server started!');
-});
+var server;
+if (process.env.npm_lifecycle_event !== 'test') {
+  server = app.listen(3000, function () {
+    console.log('Server started!');
+  });
+}
+// module.exports = server
+module.exports = app
