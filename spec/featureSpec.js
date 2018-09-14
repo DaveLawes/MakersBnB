@@ -187,7 +187,7 @@ describe('Add a property', function() {
     it('allows a user to list a new property', function() {
       browser.assert.text('.cardTitle', 'Domaine de la Pinelais');
       browser.assert.text('.cardDesc', 'Lovely castle on French seaside');
-      browser.assert.text('.price', '£3000');
+      browser.assert.text('.price', '£3000 per night');
     });
   });
 
