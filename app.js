@@ -37,7 +37,10 @@ app.use(cookieSession({
 app.get("/", function (req, res) {
   var name = req.session.name;
 
-  res.render("pages/index", {msg: false});
+  res.render("pages/index", {
+    msg: false,
+    name: name
+  });
 });
 
 app.post("/register", function (req, res) {
@@ -56,10 +59,17 @@ app.post("/register", function (req, res) {
 });
 
 app.get("/login", function (req, res) {
-  res.render("pages/login", {msg: false});
+  var name = req.session.name;
+
+  res.render("pages/login", {
+    msg: false,
+    name: name
+  });
 });
 
 app.post("/login", function (req, res) {
+  var name = req.session.name;
+
   User.findAll({
     where: {
       email: req.body.email,
@@ -72,15 +82,20 @@ app.post("/login", function (req, res) {
     res.redirect("/properties");
   })
   .catch(function (err) {
-    res.render("pages/login", {msg: true});
+    res.render("pages/login", {
+      msg: true,
+      name: name
+    });
   });
 });
 
 app.get("/properties", function (req, res) {
+  var name = req.session.name;
 
   Property.findAll().then(function (result) {
     res.render("pages/properties", {
-      properties: result
+      properties: result, 
+      name: name
     });
   });
 
