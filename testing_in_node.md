@@ -31,8 +31,11 @@ This what's on our first line:
 This sets the variable `Browser` to the [Zombie](http://zombie.js.org/) package. Later, we create a new instance of browser (`const browser = new Browser()`) which we use throughout the tests which have been written in the Zombie syntax.
 
 
-_**An important note on what Zombie is:**  
-Zombie is a 'headless testing framework'. What this means is that it doesn't require a GUI (graphical user interface) - such as a browser like Chrome or Firefox - to run its tests. Whereas when you run tests using Jasmine, you access the results from a browser window._
+**An important note on what Zombie is:**  
+
+* Zombie is a 'headless testing framework'. 
+* What this means is that it doesn't require a GUI (graphical user interface) - such as a browser like Chrome or Firefox - to run its tests. 
+* This differs from when you run tests using Jasmine, where you would access the results from a browser window.
 
   
 Following on, we have this line:
@@ -64,11 +67,13 @@ if (process.env.npm_lifecycle_event !== 'test') {
 ```
 This is really similar to what's in our test, other than we've asked it to ask our app to be loaded to **port 3000** on localhost.
 
-_Note: `process.env.npm_lifecycle_event` is used here to check if the current running process is **not** 'test'.  
-Running process can be thought of as the context in which the app.js is being run.  
-The `env.npm_lifecycle_event` part is accessing the value of an environment variable called `npm_lifecycle_event`.  
-This environment variable is specific to npm, and when we run `npm test` this variable's value is set to `test`.  
-Therefore, when we reach the earlier line `var app = require('../app');` (in our featureSpec.js) we know that the block of code relating to port 3000 will be ignored, as `npm test` has a 'test' value in it's `npm_lifecycle_event` environment variable._
+**Note:**  
+
+* `process.env.npm_lifecycle_event` is used here to check if the current running process is **not** 'test'.  
+* Running process can be thought of as the context in which the app.js is being run.  
+* The `env.npm_lifecycle_event` part is accessing the value of an environment variable called `npm_lifecycle_event`.  
+* This environment variable is specific to npm, and when we run `npm test` this variable's value is set to `test`.  
+* Therefore, when we reach the earlier line `var app = require('../app');` (in our featureSpec.js) we know that the block of code relating to port 3000 will be ignored, as `npm test` has a 'test' value in it's `npm_lifecycle_event` environment variable.
 
 Next up: 
 `const browser = new Browser();`  
@@ -86,4 +91,29 @@ describe('Global server set up', function(){
     stopServer();
   });
 ```
-Here, we're asking for our app to be up and running (on localhost at port 4000) before each and every test is run. 
+Here, we're asking for our app to be up and running (on localhost at port 4000) before each and every test is run. Ideally you'd be able to put the `beforeEach` / `afterEach` in each of the `describe` blocks (rather than wrapping _all_ tests in one big `describe` block), however Zombie doesn't seem to allow this. 
+
+----
+----
+What happens when you `require(.../file)`?
+----
+We use this line in our test suite: `var app = require('../app');`
+
+What actually happens when this `app` variable is set?
+
+First off, in our app.js file we set a load of constants (variables):
+
+```
+const express = require('express');  
+const bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
+const path = require('path');
+const app = express();
+```
+
+Note that `app` here is actually being set to `express`, which is the first thing we've defined.
+
+Then:  
+`require('dotenv').config();`
+Here we're requiring the `dotenv` module which allows us to access environment variables that we've listed in a `.env` file. We use `.env` 
