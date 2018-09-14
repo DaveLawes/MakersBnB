@@ -93,6 +93,33 @@ describe('User visits homepage', function() {
   });
 });
 
+describe('Nav bar', function() {
+  beforeEach(function() {
+    return browser.visit('/');
+  });
+
+  describe('When user is logged in', function() {
+    beforeEach(function() {
+      browser.fill('email', 'mathilde1@email.com');
+      browser.fill('name', 'mathilde1');
+      browser.fill('password','12345');
+      return browser.pressButton('Submit');
+    });
+    it('will show spaces, request and sign out', function() {
+      browser.asset.link('spacesNav a', 'Spaces', '/properties')
+      browser.asset.link('requestsNav a', 'Request', '/requests')
+      browser.asset.link('signOutNav a', 'Sign out', '/logout')
+    });
+  });
+
+  describe('When user is not logged in', function() {
+    it('will show spaces and log in', function() {
+      browser.asset.link('spacesNav a', 'Spaces', '/properties')
+      browser.asset.link('loginNav a', 'Sign in', '/login')
+    });
+  })
+});
+
 describe('View all properties', function() {
   beforeEach(function() {
     startServer()

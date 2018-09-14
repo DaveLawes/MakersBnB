@@ -4,22 +4,23 @@ const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const path = require('path');
 const app = express();
+
 require('dotenv').config();
 
 if (process.env.npm_lifecycle_event === 'test') {
-  target_db = process.env.ENV_TEST_DATABASE
-  console.log("using test db")
+  target_db = process.env.ENV_TEST_DATABASE;
+  console.log("using test db");
 } else {
-  target_db = process.env.ENV_DATABASE
-  console.log("using dev db")
-};
+  target_db = process.env.ENV_DATABASE;
+  console.log("using dev db");
+}
 
 const Sequelize = require('sequelize');
 const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))(Sequelize)
 // const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))
 
-const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize)
-const Property = require(path.join(__dirname, 'server/models/property'))(sequelize, Sequelize)
+const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize);
+const Property = require(path.join(__dirname, 'server/models/property'))(sequelize, Sequelize);
 
 // Set up tables if needed - however if tables don't exist the rest of the program will carry on some tests will fail as they will have been run before the sync result is returned. You can see that the sync has actually worked, because when you run the tests again they don't fail... so the ables that were missing have been set up.
 // NOTE: Probably only want to call these 2 lines in test mode though, as unnecessary for prod mode....need to move to test route only
@@ -81,53 +82,65 @@ app.use(cookieSession({
 app.get("/", function (req, res) {
   var name = req.session.name;
 
-  res.render("pages/index", {msg:false});
+  res.render("pages/index", {
+    msg: false,
+    name: name
+  });
 });
 
 app.post("/register", function (req, res) {
     User.create({
-      name: req.body.name,
       email: req.body.email,
+      name: req.body.name,
       password: req.body.password
-    })
-
-    .then(function (result) {
+    }).then(function (result) {
       req.session.name = result.dataValues.name;
       req.session.email = result.dataValues.email;
       res.redirect("/properties");
     })
     .catch(Sequelize.ValidationError, function (err) {
-      res.render("pages/index", { msg:true});
+      res.render("pages/index", {msg: true});
     });
 });
 
 app.get("/login", function (req, res) {
-  res.render("pages/login", {msg:false});
+  var name = req.session.name;
+
+  res.render("pages/login", {
+    msg: false,
+    name: name
+  });
 });
 
 app.post("/login", function (req, res) {
+  var name = req.session.name;
+
   User.findAll({
     where: {
       email: req.body.email,
       password: req.body.password
     }
-  })
-  .then(function (result) {
+  }).then(function (result) {
     console.log(result[0].dataValues);
     req.session.name = result[0].dataValues.name;
     req.session.email = result[0].dataValues.email;
     res.redirect("/properties");
   })
   .catch(function (err) {
-    res.render("pages/login", {msg:true});
+    res.render("pages/login", {
+      msg: true,
+      name: name
+    });
   });
 });
 
 app.get("/properties", function (req, res) {
+  var name = req.session.name;
 
   Property.findAll().then(function (result) {
     res.render("pages/properties", {
-      properties: result
+      properties: result,
+      name: name
     });
   });
 });

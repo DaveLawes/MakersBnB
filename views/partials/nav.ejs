@@ -1,7 +1,10 @@
 <div class="mainNav">
   LOGO
-    <a href="/logout">Sign out</a>
-    <a href="/requests">Request</a>
-    <a href="/properties">Spaces</a>
-    <a href="/login">Login</a>
+	<% if (name) { %> 
+	  <a id="signOutNav" href="/logout">Sign out</a>
+	  <a id="requestsNav" href="/requests">Request</a>
+	<% } else { %>
+	  <a id="loginNav" href="/login">Login</a>
+	<% } %>
+	<a id="spacesNav" href="/properties">Spaces</a>
 </div>
