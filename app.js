@@ -55,6 +55,7 @@ app.post("/register", function (req, res) {
     }).then(function (result) {
       req.session.name = result.dataValues.name;
       req.session.email = result.dataValues.email;
+      req.session.user_id = result.dataValues.id;
       res.redirect("/properties");
     })
     .catch(Sequelize.ValidationError, function (err) {
@@ -80,9 +81,9 @@ app.post("/login", function (req, res) {
       password: req.body.password
     }
   }).then(function (result) {
-    console.log(result[0].dataValues);
     req.session.name = result[0].dataValues.name;
     req.session.email = result[0].dataValues.email;
+    req.session.user_id = result[0].dataValues.id;
     res.redirect("/properties");
   })
   .catch(function (err) {
@@ -103,6 +104,30 @@ app.get("/properties", function (req, res) {
     });
   });
 });
+
+app.get("/add_property", function (req, res) {
+  res.render("pages/add_property", {
+    name: req.session.name
+  });
+})
+
+app.post("/add_property", function (req, res) {
+  if (req.session.name === null) {
+    res.redirect("login")
+  }
+  Property.create({
+    title: req.body.title,
+    description: req.body.description,
+    pricePerNight: req.body.pricepernight,
+    userId: req.session.user_id,
+    photo: req.body.picurl
+  }).then( function (result) {
+    res.redirect("properties");
+  })
+  .catch(Sequelize.ValidationError, function (err) {
+    res.render("pages/add_property", {msg: true});
+  });
+})
 
 app.get("/logout", function (req, res) {
   req.session = null;
