@@ -31,7 +31,7 @@ describe('Global server set up', function(){
   beforeEach(function() {
     startServer()
     return browser.visit('/');
-  })
+  });
 
   afterEach(function(){
     stopServer()
@@ -41,7 +41,7 @@ describe('Global server set up', function(){
   describe('User visits homepage', function() {
     beforeEach(function() {
       return browser.visit('/');
-    })
+    });
 
     describe('Register', function() {
       beforeEach(function() {
@@ -98,18 +98,9 @@ describe('Global server set up', function(){
     });
   });
 
-  /*
-  THIS SUITE OF TESTS NEEDS FIXING!
-  PLEASE NOTE ADDITION OF startServer AND stopServer
-  */
   describe('Nav bar', function() {
     beforeEach(function() {
-      // startServer()
       return browser.visit('/');
-    });
-
-    afterEach(function(){
-      // stopServer()
     });
 
     describe('When user is logged in', function() {
@@ -135,30 +126,35 @@ describe('Global server set up', function(){
 
   describe('Nav bar', function() {
     beforeEach(function() {
-      // startServer()
       return browser.visit('/');
     });
 
-    afterEach(function(){
-      // stopServer()
+    it("display user's name", function() {
+      browser.assert.text('#welcomeMessage', 'Welcome, mathilde1');
     });
 
-    describe('When user is not logged in', function() {
-      beforeEach(function() {
-        return browser.clickLink('Sign out');
-      });
-
-      it('will show spaces and log in', function() {
-        browser.assert.link('#spacesNav', 'Spaces', '/properties');
-        browser.assert.link('#loginNav', 'Login', '/login');
-      });
-    });
   });
 
-  describe('View all properties', function() {
+  describe('Nav bar', function() {
     beforeEach(function() {
-      return browser.visit('/properties');
+      return browser.visit('/');
     });
+  
+      describe('When user is not logged in', function() {
+        beforeEach(function() {
+          return browser.clickLink('Sign out');
+        });
+  
+        it('will show spaces and log in', function() {
+          browser.assert.link('#spacesNav', 'Spaces', '/properties');
+          browser.assert.link('#loginNav', 'Login', '/login');
+        });
+      });
+  
+    describe('View all properties', function() {
+      beforeEach(function() {
+        return browser.visit('/properties');
+      });
 
     it('expect to have title of properties page', function() {
       browser.assert.text('.sub-title-prop', 'All Properties');
@@ -187,4 +183,5 @@ describe('Global server set up', function(){
     });
 
   });
+});
 });
