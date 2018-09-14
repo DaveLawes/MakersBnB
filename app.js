@@ -51,6 +51,7 @@ app.post("/register", function (req, res) {
     }).then(function (result) {
       req.session.name = result.dataValues.name;
       req.session.email = result.dataValues.email;
+      req.session.user_id = result.dataValues.id;
       res.redirect("/properties");
     })
     .catch(Sequelize.ValidationError, function (err) {
@@ -76,7 +77,6 @@ app.post("/login", function (req, res) {
       password: req.body.password
     }
   }).then(function (result) {
-    console.log(result[0].dataValues);
     req.session.name = result[0].dataValues.name;
     req.session.email = result[0].dataValues.email;
     req.session.user_id = result[0].dataValues.id;
@@ -102,7 +102,9 @@ app.get("/properties", function (req, res) {
 });
 
 app.get("/add_property", function (req, res) {
-  res.render("pages/add_property")
+  res.render("pages/add_property", {
+    name: req.session.name
+  });
 })
 
 app.post("/add_property", function (req, res) {
@@ -113,10 +115,9 @@ app.post("/add_property", function (req, res) {
     title: req.body.title,
     description: req.body.description,
     pricePerNight: req.body.pricepernight,
-    photo: req.body.picurl,
-    user_id: req.session.user_id
+    userId: req.session.user_id,
+    photo: req.body.picurl
   }).then( function (result) {
-    console.log(result[0].dataValues);
     res.redirect("properties");
   })
   .catch(Sequelize.ValidationError, function (err) {
