@@ -11,6 +11,7 @@ var server;
 var startServer = () => { server = app.listen(4000) };
 var stopServer = () => { server.close() };
 
+// THESE ARE NEEDED TO CALL TRUNCATE ON THE PROPERTY AND USER TABLES (RESETS THE TEST DATABASE'S TABLES TO EMPTY)
 const path = require('path');
 require('dotenv').config();
 const Sequelize = require('sequelize');
@@ -18,28 +19,18 @@ const sequelize = require(path.join(__dirname, '../server/models/dbconnection'))
 const User = require(path.join(__dirname, '../server/models/user'))(sequelize, Sequelize);
 const Property = require(path.join(__dirname, '../server/models/property'))(sequelize, Sequelize);
 
-/*
-NOTE: THIS RESETS THE TEST DATABASE'S TABLES TO EMPTY. THEY WILL BE FILLED WITH TEST DATA AFTERWARDS. THEY SHOULD BE CLEARED AS PART OF THE TEST CYCLE, NOT HERE!
-AN ERROR WILL THROW IF THE TABLES DON'T EXIST (THEY CAN BE CRETED USING .SYNC BUT WHEN THE TEST SUITE IS RUN THE FIRST TIME WITH THIS, IT CAN CAUSE FALSE ERRORS AS ITS ASYNC EVALUATED.... SO JUST RUN THE TESTS AGAIN )
-*/
-if (process.env.npm_lifecycle_event === 'test') {
-  console.log('clearing test tables.....');
-  User.truncate()
-  Property.truncate()
-  console.log(".....test tables emptied")
-}
-
-// var User;
-// var userTruncate = () => { User.truncate }
-
 const browser = new Browser();
 
 describe('Global server set up', function(){
   beforeEach(function() {
+    User.truncate()
+    Property.truncate()
+    console.log(".....test tables emptied")
     startServer()
   });
 
   afterEach(function(){
+
     stopServer();
   });
 
@@ -56,10 +47,6 @@ describe('Global server set up', function(){
         browser.fill('password','1234');
         return browser.pressButton('Submit');
       });
-
-      afterEach(function() {
-        User.truncate()
-      })
 
       describe('Logged in tests', function() {
         it('should be successful', function() {

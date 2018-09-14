@@ -13,17 +13,6 @@ const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))(Se
 const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize);
 const Property = require(path.join(__dirname, 'server/models/property'))(sequelize, Sequelize);
 
-/*
-NOTE: THIS RESETS THE TEST DATABASE'S TABLES TO EMPTY. THEY WILL BE FILLED WITH TEST DATA AFTERWARDS. THEY SHOULD BE CLEARED AS PART OF THE TEST CYCLE, NOT HERE!
-AN ERROR WILL THROW IF THE TABLES DON'T EXIST (THEY CAN BE CRETED USING .SYNC BUT WHEN THE TEST SUITE IS RUN THE FIRST TIME WITH THIS, IT CAN CAUSE FALSE ERRORS AS ITS ASYNC EVALUATED.... SO JUST RUN THE TESTS AGAIN )
-*/
-// if (process.env.npm_lifecycle_event === 'test') {
-//   console.log('clearing test tables.....');
-//   User.truncate()
-//   Property.truncate()
-//   console.log(".....test tables emptied")
-// }
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, "public")));
@@ -137,10 +126,6 @@ app.get("/logout", function (req, res) {
   res.redirect("/");
 });
 
-/* NOTE: 'npm_lifecycle_event' IS AN ENVIRONMENT VARIABLE SET BY npm WHEN IT IS RUN:
-WHEN npm test IS RUN, THIS VAR IS SET TO 'TEST'
-THIS BIT BELOW SETS THE LOCALHOST CONNECTION AT PORT 3000 WHENEVER IT'S RUNNING IN ANY MODE OTHER THAN TEST
-*/
 var server;
 if (process.env.npm_lifecycle_event !== 'test') {
   server = app.listen(3000, function () {
@@ -148,8 +133,4 @@ if (process.env.npm_lifecycle_event !== 'test') {
   });
 }
 
-
-
-// THIS NEEDS TO BE AT THE END, NOT THE START!
 module.exports = app
-// module.exports = User
