@@ -9,6 +9,8 @@ Code with :heart: by :
 - [Mathilde Ferrand](https://github.com/ChocolatineMathou)  
 - [Rashika Patel](https://github.com/cbp10)
 
+![makersbnb code with love preview](./public/img/makersBNB.gif)
+
 ## MVP
 
 Users can list spaces on the web application that are visible to all.
@@ -18,10 +20,20 @@ This project was built with Javascript with the the MVC [Express](https://expres
 Our testing framework is [Jasmine](https://jasmine.github.io/) paired with:  
 - [Zombie](http://zombie.js.org/) to test the user experience of this web-based application  
 - [Istanbul](https://istanbul.js.org/) to get the test coverage.  
-[ESLint](https://eslint.org/) has been set up in this project (ES6 by default) to get a better knowledge of Javascript style guidelines.
+[ESLint](https://eslint.org/) has been set up in this project (ES6 by default) to get a better knowledge of Javascript style guidelines.  
+[Sequelize](http://docs.sequelizejs.com/) is an ORM for Node.js.
 
 ## How to install
 
+### Setting up the databases
+To play with this project, you'll need to set up a test and production cloud-based databases (we used this [service](https://www.elephantsql.com/)) with SQLite as dialect (you can also use PostreSQL, MySQL, MariaDB or MSSQL but you'll need to change some settings).
+Once you get the links of your databases, you need an `.env` at the root of the project and paste the links into it:  
+```ENV_DATABASE=your_database_url  
+ENV_TEST_DATABASE=your_test_database_url
+```
+For each database, you need two tables: users and properties. This set up will be written soon.
+
+### Setting up the project
 Make sure you already have Node.js on your machine or download it from [here](https://nodejs.org/en/).
 You can now move to the following steps:
 ```
@@ -37,11 +49,15 @@ In your terminal:
 - type `npm test` to run Jasmine/Zombie tests and get the test coverage  
 - type `./node_modules/.bin/eslint yourfile.js` to run ESLint.
 
+Test coverage after the last commit:  
+Statements   : 95.65% ( 176/184 )  
+Branches     : 62.5% ( 5/8 )  
+Functions    : 91.67% ( 55/60 )  
+Lines        : 95.6% ( 174/182 )
+
 ## User Stories
 
 ```
--- BASIC --
-
 As a property owner
 So I can list a property
 I'd like to create an account
@@ -92,3 +108,23 @@ Only logged in users can add a property listing
  - Their request to book a space is denied
 - A ‘chat’ functionality once a space has been booked, allowing users whose space-booking request has been confirmed to chat with the user that owns that space
 - Basic payment implementation though Stripe.
+
+## Team's feedbacks
+
+This challenge has been our first group project at Makers.  
+We started with a MVP in Ruby/Sintra but also two spike solutions: a second MVP using Javascript/Express and an ORM paired with a cloud-based database alternative. Naturally we added an extra layer of challenge by working with a brand new stack.
+We have learned a lot:  
+- Working in team  
+- GitHub: branches, merging, pull requests and reviews  
+- Quitting VIM  
+- Using Node.js and Express with new testing tools
+
+Obviously there are some drawbacks. We may have spent quite some time to set everything up and discover this new environment which could have been frustrating to understand how they work.
+
+## Appendix - team documentation
+
+- [CRC Cards](./crc-cards.md)  
+- [Domain model](./domain_model)  
+- [Goals and Strategies](./goals_and_strategies.md)  
+- [ORM for Javascript investigation](./orm_for_javascript)  
+- [Testing in Node.js](./testing_in_node)
