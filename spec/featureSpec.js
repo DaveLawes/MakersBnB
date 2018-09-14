@@ -31,7 +31,7 @@ describe('Global server set up', function(){
   beforeEach(function() {
     startServer()
     return browser.visit('/');
-  })
+  });
 
   afterEach(function(){
     stopServer()
@@ -41,7 +41,7 @@ describe('Global server set up', function(){
   describe('User visits homepage', function() {
     beforeEach(function() {
       return browser.visit('/');
-    })
+    });
 
     describe('Register', function() {
       beforeEach(function() {
@@ -133,37 +133,33 @@ describe('Global server set up', function(){
       browser.assert.text('#welcomeMessage', 'Welcome, mathilde1');
     });
 
-    it("will show a button to list a new space", function() {
-      browser.assert.attribute('#newSpace', 'href', '/add_property');
+  });
+
+  describe('Nav bar', function() {
+    beforeEach(function() {
+      return browser.visit('/');
+    });
+  
+      describe('When user is not logged in', function() {
+        beforeEach(function() {
+          return browser.clickLink('Sign out');
+        });
+  
+        it('will show spaces and log in', function() {
+          browser.assert.link('#spacesNav', 'Spaces', '/properties');
+          browser.assert.link('#loginNav', 'Login', '/login');
+        });
+      });
+  
+    describe('View all properties', function() {
+      beforeEach(function() {
+        return browser.visit('/properties');
+      });
+  
+      it('expect to have title of properties page', function() {
+        browser.assert.text('.sub-title-prop', 'All Properties');
+      });
     });
   });
 
 });
-
-describe('Nav bar', function() {
-  beforeEach(function() {
-    return browser.visit('/');
-  });
-
-    describe('When user is not logged in', function() {
-      beforeEach(function() {
-        return browser.clickLink('Sign out');
-      });
-
-      it('will show spaces and log in', function() {
-        browser.assert.link('#spacesNav', 'Spaces', '/properties');
-        browser.assert.link('#loginNav', 'Login', '/login');
-      });
-    });
-  });
-
-  describe('View all properties', function() {
-    beforeEach(function() {
-      return browser.visit('/properties');
-    });
-
-    it('expect to have title of properties page', function() {
-      browser.assert.text('.sub-title-prop', 'All Properties');
-    });
-  });
-})
