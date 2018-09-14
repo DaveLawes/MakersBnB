@@ -1,0 +1,27 @@
+<% include ../partials/header.ejs %>
+<% include ../partials/nav.ejs %>
+
+<div id="welcomeWrapper">
+  <h1 id="welcome">MakersBnB</h1>
+
+  <h2 class="sub-title">List a Space</h2>
+
+  <div id="signupWrapper">
+    <form action="/add_property" method="post">
+      <div id="innerForm">
+        <label for="title">Title:</label>
+        <input id="title" type="text" name="title" required>
+        <label for="description">Description:</label>
+        <input id="description" type="description" name="description" required>
+        <label for="pricepernight">Price per night:</label>
+        <input id="pricepernight" type="pricepernight" name="pricepernight" required>
+        <label for="picurl">Picture URL:</label>
+        <input id="picurl" type="picurl" name="picurl" required>
+      </div>
+      <button id="submit" type="submit" name="Submit">Submit</button>
+    </form>
+  </div>
+
+</div>
+
+<% include ../partials/footer.ejs %>
