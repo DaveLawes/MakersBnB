@@ -115,9 +115,9 @@ describe('Nav bar', function() {
       return browser.pressButton('Submit');
     });
     it('will show spaces, request and sign out', function() {
-      browser.assert.link('spacesNav a', 'Spaces', '/properties')
-      browser.assert.link('requestsNav a', 'Request', '/requests')
-      browser.assert.link('signOutNav a', 'Sign out', '/logout')
+      browser.assert.link('#spacesNav', 'Spaces', '/properties')
+      browser.assert.link('#requestsNav', 'Request', '/requests')
+      browser.assert.link('#signOutNav', 'Sign out', '/logout')
     });
 
     it("will show a button to list a new space", function() {
@@ -128,8 +128,8 @@ describe('Nav bar', function() {
 
   describe('When user is not logged in', function() {
     it('will show spaces and log in', function() {
-      browser.assert.link('spacesNav a', 'Spaces', '/properties')
-      browser.assert.link('loginNav a', 'Sign in', '/login')
+      browser.assert.link('#spacesNav', 'Spaces', '/properties')
+      browser.assert.link('#loginNav', 'Sign in', '/login')
     });
   })
 });
