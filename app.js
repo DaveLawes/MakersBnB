@@ -7,66 +7,25 @@ const app = express();
 
 require('dotenv').config();
 
-if (process.env.npm_lifecycle_event === 'test') {
-  target_db = process.env.ENV_TEST_DATABASE;
-  console.log("using test db");
-} else {
-  target_db = process.env.ENV_DATABASE;
-  console.log("using dev db");
-}
-
 const Sequelize = require('sequelize');
 const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))(Sequelize)
-// const sequelize = require(path.join(__dirname, 'server/models/dbconnection'))
 
 const User = require(path.join(__dirname, 'server/models/user'))(sequelize, Sequelize);
 const Property = require(path.join(__dirname, 'server/models/property'))(sequelize, Sequelize);
 
-// Set up tables if needed - however if tables don't exist the rest of the program will carry on some tests will fail as they will have been run before the sync result is returned. You can see that the sync has actually worked, because when you run the tests again they don't fail... so the ables that were missing have been set up.
-// NOTE: Probably only want to call these 2 lines in test mode though, as unnecessary for prod mode....need to move to test route only
-// NOTE: Recreate this: delete tables from the test database, then run npm test, then see some tests fail and the rest pass. Before the passing tests, the console.log statements should appear. Usually tables are built after the first test has run.
+/*
+THIS CHECKS IF THE TABLES EXIST IN THE DATABASE OF THE CURRENT RUNNING ENVIROMENT (TEST OR NON-TEST).
+IF THE TABLES DON'T EXIST, IT WILL CREATE THEM FROM THE RELEVANT MODELS.
+THIS SHOULD BE REFACTORED INTO A CONDITIONAL, SO THAT IT ONLY HAPPENS WHEN RUNNING IN TEST MODE.
+NOTE: IN TEST MODE: IF THE TABLES DON'T EXIST, THE FIRST TEST MAY FAIL AND THE REST MAY WORK. AND THEN WHEN YOU RE-RUN THE TESTS, ALL TESTS PASS. THIS IS BECAUSE THE .SYNC HASN'T FINISHED CREATING THE MISSING TABLES BEFORE THE FIRST TEST HAS EXECUTED AND RETURNED IT'S RESULT.
+TO RECREATE: DELETE TABLES FROM TEST DATABASE. RUN TEST SUITE. LOOK FOR THE CONSOLE LOG MESSAGES SHOWING WHEN THE TABLES WERE CREATED (THEY'LL BE RIGHT BEFORE THE TESTS START PASSING!)
+*/
 Property.sync().then((responses) => {
   console.log('**** properties table set up ****');
 })
 User.sync().then((responses) => {
   console.log('**** users table set up ****');
 })
-
-// Promise.all([User.sync(), Property.sync()]).then(responses => {
-//   console.log("Tables set up:")
-//   console.log(responses)
-// })
-
-
-//BELOW CODE WILL ADD TO DATABASE
-// Property.sync({force: false}).then(() => {
-  /*
-  Table created if doesn't already exist.
-  Maybe we just need User.create below as our tables do exist.
-  force: true above will delete the table and create a new one.
-  */
-
-//   return User.create({
-//     name: 'John',
-//     email: 'john@john.com',
-//     password: 'pwd126789101'
-//   });
-// });
-//   return Property.create({
-//     title: 'Shack by the sea',
-//     description: 'Super crappy',
-//     pricePerNight: 20,
-//     photo: ''
-//   });
-// });
-
-// Code below creates a user too, but only returns a promise.
-
-// user1 = User.create({
-//   name: 'Dave',
-//   email: 'dave@email.com',
-//   password: '1234567891011'
-// });
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -150,14 +109,16 @@ app.get("/logout", function (req, res) {
   res.redirect("/");
 });
 
-
-// NOTE: npm_lifecycle_event is an environment variable set by npm when it's run. When you run 'npm test' the npm_lifecycle_event is set to 'test'.
-// The below bit is to make sure that when non-test mode is runnning, the app loads on localhost at port 3000 (can set to a diff port for tests, so that dev/prod and test mode can be run at the same time.)
+/* NOTE: 'npm_lifecycle_event' IS AN ENVIRONMENT VARIABLE SET BY npm WHEN IT IS RUN:
+WHEN npm test IS RUN, THIS VAR IS SET TO 'TEST'
+THIS BIT BELOW SETS THE LOCALHOST CONNECTION AT PORT 3000 WHENEVER IT'S RUNNING IN ANY MODE OTHER THAN TEST
+*/
 var server;
 if (process.env.npm_lifecycle_event !== 'test') {
   server = app.listen(3000, function () {
     console.log('Server started!');
   });
 }
-// module.exports = server
+
+// THIS NEEDS TO BE AT THE END, NOT THE START!
 module.exports = app

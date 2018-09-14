@@ -93,9 +93,18 @@ describe('User visits homepage', function() {
   });
 });
 
+/*
+THIS SUITE OF TESTS NEEDS FIXING!
+PLEASE NOTE ADDITION OF startServer AND stopServer
+*/
 describe('Nav bar', function() {
   beforeEach(function() {
+    startServer()
     return browser.visit('/');
+  });
+
+  afterEach(function(){
+    stopServer()
   });
 
   describe('When user is logged in', function() {
@@ -106,16 +115,16 @@ describe('Nav bar', function() {
       return browser.pressButton('Submit');
     });
     it('will show spaces, request and sign out', function() {
-      browser.asset.link('spacesNav a', 'Spaces', '/properties')
-      browser.asset.link('requestsNav a', 'Request', '/requests')
-      browser.asset.link('signOutNav a', 'Sign out', '/logout')
+      browser.assert.link('spacesNav a', 'Spaces', '/properties')
+      browser.assert.link('requestsNav a', 'Request', '/requests')
+      browser.assert.link('signOutNav a', 'Sign out', '/logout')
     });
   });
 
   describe('When user is not logged in', function() {
     it('will show spaces and log in', function() {
-      browser.asset.link('spacesNav a', 'Spaces', '/properties')
-      browser.asset.link('loginNav a', 'Sign in', '/login')
+      browser.assert.link('spacesNav a', 'Spaces', '/properties')
+      browser.assert.link('loginNav a', 'Sign in', '/login')
     });
   })
 });
