@@ -112,16 +112,15 @@ app.get("/properties", function (req, res) {
 });
 
 app.get("/add_property", function (req, res) {
+  if (req.session.name === undefined) {
+    res.redirect("/login")
+  }
   res.render("pages/add_property", {
     name: req.session.name
   });
 })
 
 app.post("/add_property", function (req, res) {
-  console.log(req.session.name);
-  if (req.session.name === undefined) {
-    res.redirect("login")
-  }
   Property.create({
     title: req.body.title,
     description: req.body.description,

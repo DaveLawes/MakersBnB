@@ -37,7 +37,6 @@ describe('Global server set up', function(){
     stopServer()
   });
 
-
   describe('User visits homepage', function() {
     beforeEach(function() {
       return browser.visit('/');
@@ -67,15 +66,26 @@ describe('Global server set up', function(){
         return browser.pressButton('Submit');
         browser.asset.text('Email already taken');
       });
-    });
 
-    describe('Clicks sign out button', function() {
-      beforeEach(function() {
-        return browser.clickLink('Sign out');
-      });
+      describe('Clicks sign out button', function() {
+        beforeEach(function() {
+          return browser.clickLink('Sign out');
+        });
 
-      it('is back on the register page', function() {
-        browser.assert.element('form input[name=name]');
+        it('is back on the register page', function() {
+          browser.assert.element('form input[name=name]');
+        });
+
+        describe('Add property redirects to login if not logged in', function() {
+          beforeEach(function() {
+            return browser.visit('/add_property')
+          });
+
+          it('Shows login page', function() {
+            browser.assert.text('.sub-title', 'Login')
+          })
+        })
+
       });
     });
 
@@ -104,12 +114,7 @@ describe('Global server set up', function(){
   */
   describe('Nav bar', function() {
     beforeEach(function() {
-      // startServer()
       return browser.visit('/');
-    });
-
-    afterEach(function(){
-      // stopServer()
     });
 
     describe('When user is logged in', function() {
@@ -161,40 +166,37 @@ describe('Global server set up', function(){
   });
 
   describe('Add a property', function() {
-    describe('Redirect to login if not logged in', function() {
+    describe('Go to Login', function() {
       beforeEach(function() {
-        return browser.visit('/add_property')
-      });
-
-      it('Shows login page', function() {
-        browser.assert.text('.sub-title', 'Login')
+        return browser.visit('/login')
       })
-    })
-    describe('Log in and go to add property', function() {
-      beforeEach(function() {
-        browser.visit('/login', function() {
+      describe('Fill in details and submit', function() {
+        beforeEach(function() {
           browser.fill('email', 'mathilde@email.com');
           browser.fill('password', '1234');
-          browser.pressButton('Submit', function() {
-            return browser.visit('/add_property')
-          });
-        })
-      })
-      describe('user enters details about property', function() {
-        beforeEach(function() {
-          browser.fill('title', 'Domaine de la Pinelais');
-          browser.fill('description', 'Lovely castle on French seaside');
-          browser.fill('pricepernight', '3000');
-          browser.fill('picurl', 'https://cdn5.1001salles.com/images/12427/g/1448573683_3119_679818177.jpg');
+          console.log('filled in login, about to submit');
           return browser.pressButton('Submit');
         });
-
-        it('allows a user to list a new property', function() {
-          browser.assert.text('.cardTitle', 'Domaine de la Pinelais');
-          browser.assert.text('.cardDesc', 'Lovely castle on French seaside');
-          browser.assert.text('.price', '£3000 per night');
-        });
-      });
+        describe('Go to add property', function() {
+          beforeEach(function() {
+            return browser.visit('/add_property')
+          })
+          describe('Fill in property details', function () {
+            beforeEach(function() {
+              browser.fill('title', 'Domaine de la Pinelais');
+              browser.fill('description', 'Lovely castle on French seaside');
+              browser.fill('pricepernight', '3000');
+              browser.fill('picurl', 'https://cdn5.1001salles.com/images/12427/g/1448573683_3119_679818177.jpg');
+              return browser.pressButton('Submit');
+            });
+            it('new property has been added to all properties list', function() {
+              browser.assert.text('.cardTitle', 'Domaine de la Pinelais');
+              browser.assert.text('.cardDesc', 'Lovely castle on French seaside');
+              browser.assert.text('.price', '£3000 per night');
+            });
+          })
+        })
+      })
     })
   });
 });
