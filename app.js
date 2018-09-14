@@ -118,7 +118,8 @@ app.get("/add_property", function (req, res) {
 })
 
 app.post("/add_property", function (req, res) {
-  if (req.session.name === null) {
+  console.log(req.session.name);
+  if (req.session.name === undefined) {
     res.redirect("login")
   }
   Property.create({

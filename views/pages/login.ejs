@@ -1,16 +1,37 @@
 <% include ../partials/header.ejs %>
 <% include ../partials/nav.ejs %>
 
-<h1>Welcome to MakersBNB</h1>
+<!-- <h1>Welcome to MakersBNB</h1>
 
 <h2>Login</h2>
 <% if (msg) { %>
  Email/password incorrect
-<% } %>
-<form action="/login" method="post">
+<% } %> -->
+<!-- <form action="/login" method="post">
   <input type="email" name="email" value="email" required>
   <input type="password" name="password" value="password" required>
   <input type="submit" value="Submit">
-</form>
+</form> -->
+
+<div id="welcomeWrapper">
+  <h1 id="welcome">MakersBnB</h1>
+
+  <h2 class="sub-title">Login</h2>
+  <% if (msg) { %>
+   Email/password incorrect
+  <% } %>
+  <div id="signupWrapper">
+    <form action="/login" method="post">
+      <div id="innerForm">
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+      </div>
+      <button id="submit" type="submit" name="Submit">Submit</button>
+    </form>
+  </div>
+
+</div>
 
 <% include ../partials/footer.ejs %>
