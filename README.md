@@ -28,7 +28,8 @@ Our testing framework is [Jasmine](https://jasmine.github.io/) paired with:
 ### Setting up the databases
 To play with this project, you'll need to set up a test and production cloud-based databases (we used this [service](https://www.elephantsql.com/)) with SQLite as dialect (you can also use PostreSQL, MySQL, MariaDB or MSSQL but you'll need to change some settings).
 Once you get the links of your databases, you need an `.env` at the root of the project and paste the links into it:  
-```ENV_DATABASE=your_database_url  
+```
+ENV_DATABASE=your_database_url  
 ENV_TEST_DATABASE=your_test_database_url
 ```
 For each database, you need two tables: users and properties. This set up will be written soon.
@@ -50,10 +51,10 @@ In your terminal:
 - type `./node_modules/.bin/eslint yourfile.js` to run ESLint.
 
 Test coverage after the last commit:  
-Statements   : 95.65% ( 176/184 )  
-Branches     : 62.5% ( 5/8 )  
-Functions    : 91.67% ( 55/60 )  
-Lines        : 95.6% ( 174/182 )
+Statements   : 95.56% ( 172/180 )  
+Branches     : 66.67% ( 4/6 )  
+Functions    : 91.53% ( 55/59 )  
+Lines        : 95.51% ( 170/178 )
 
 ## User Stories
 
@@ -123,8 +124,8 @@ Obviously there are some drawbacks. We may have spent quite some time to set eve
 
 ## Appendix - team documentation
 
-- [CRC Cards](./crc-cards.md)  
-- [Domain model](./domain_model)  
+- [CRC Cards](./crc_cards.md)  
+- [Domain model](./domain_model.md)  
 - [Goals and Strategies](./goals_and_strategies.md)  
-- [ORM for Javascript investigation](./orm_for_javascript)  
-- [Testing in Node.js](./testing_in_node)
+- [ORM for Javascript investigation](./orm_for_javascript.md)  
+- [Testing in Node.js](./testing_in_node.md)
