@@ -127,5 +127,5 @@ Obviously there are some drawbacks. We may have spent quite some time to set eve
 - [CRC Cards](./crc_cards.md)  
 - [Domain model](./domain_model.md)  
 - [Goals and Strategies](./goals_and_strategies.md)  
-- [ORM for Javascript investigation](./orm_for_javascript.md)  
+- [ORM for Javascript investigation](./orm_for_javascript_investigation.md)  
 - [Testing in Node.js](./testing_in_node.md)
