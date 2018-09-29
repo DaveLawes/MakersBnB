@@ -16,7 +16,7 @@ Code with :heart: by :
 Users can list spaces on the web application that are visible to all.
 
 ## Technologies
-This project was built with Javascript with the the MVC [Express](https://expressjs.com/) as it seemed easy to set up for a first experience.  
+This project was built with Javascript with the MVC [Express](https://expressjs.com/) as it seemed easy to set up for a first experience.  
 Our testing framework is [Jasmine](https://jasmine.github.io/) paired with:  
 - [Zombie](http://zombie.js.org/) to test the user experience of this web-based application  
 - [Istanbul](https://istanbul.js.org/) to get the test coverage.  
@@ -32,7 +32,7 @@ Once you get the links of your databases, you need an `.env` at the root of the 
 ENV_DATABASE=your_database_url  
 ENV_TEST_DATABASE=your_test_database_url
 ```
-For each database, you need two tables: users and properties. This set up will be written soon.
+For each database, you need two tables: users and properties.
 
 ### Setting up the project
 Make sure you already have Node.js on your machine or download it from [here](https://nodejs.org/en/).
@@ -87,28 +87,12 @@ Only logged in users can add a property listing
 - Any signed-up user can list a new space. :white_check_mark:
 - Users can list multiple spaces. :white_check_mark:
 - Users should be able to name their space, provide a short description of the space, and a price per night. :white_check_mark:
+
+### Next steps
+
 - Users should be able to offer a range of dates where their space is available.
 - Any signed-up user can request to hire any space for one night, and this should be approved by the user that owns that space.
 - Nights for which a space has already been booked should not be available for users to book that space.
-- Until a user has confirmed a booking request, that space can still be booked for that night.
-
-### Nice-to-haves
-
-- Users should receive an email whenever one of the following happens:
- - They sign up
- - They create a space
- - They update a space
- - A user requests to book their space
- - They confirm a request
- - They request to book a space
- - Their request to book a space is confirmed
- - Their request to book a space is denied
-- Users should receive a text message to a provided number whenever one of the following happens:
- - A user requests to book their space
- - Their request to book a space is confirmed
- - Their request to book a space is denied
-- A ‘chat’ functionality once a space has been booked, allowing users whose space-booking request has been confirmed to chat with the user that owns that space
-- Basic payment implementation though Stripe.
 
 ## Team's feedbacks
 
@@ -120,7 +104,7 @@ We have learned a lot:
 - Quitting VIM  
 - Using Node.js and Express with new testing tools
 
-Obviously there are some drawbacks. We may have spent quite some time to set everything up and discover this new environment which could have been frustrating to understand how they work.
+We concluded that we would like to work more with ORMs in future projects to develop our understanding more fully. 
 
 ## Appendix - team documentation
 
